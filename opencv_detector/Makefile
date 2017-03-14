@@ -1,5 +1,6 @@
 # The compiler to use
 CC=$(CCPREFIX)g++
+LD=ld
 
 # Compiler flags
 CFLAGS=-c -Wall `pkg-config --cflags opencv`
@@ -8,34 +9,20 @@ CFLAGS=-c -Wall `pkg-config --cflags opencv`
 
 LIBS=`pkg-config --libs opencv`
 
-# Name of executable output
-EXECUTABLE=peeps
+TARGET=peeps
+SRCDIR=src
+BUILDDIR=build
 
-all: clean $(EXECUTABLE)
+# OBJ := $(patsubst %.cpp,%.o,$(shell find ./src -name '*.cpp'))
+OBJ := $(patsubst $(SRCDIR)/%.cpp,$(BUILDDIR)/%.o,$(shell find ./$(SRCDIR) -name '*.cpp'))
 
-$(EXECUTABLE): main.o camera.o web_camera.o filter_chain.o filter.o frame_grab.o gaussian_blur.o
-	$(CC) main.o camera.o web_camera.o filter_chain.o filter.o frame_grab.o gaussian_blur.o -o $(EXECUTABLE) $(LIBS)
+all: $(TARGET)
 
-main.o: main.cpp
-	$(CC) $(CFLAGS) main.cpp
+peeps : $(OBJ)
+	$(CC) $(LDFLAGS) -o $(BUILDDIR)/$@ $(OBJ) $(LIBS)
 
-camera.o: lib/camera/camera.cpp
-	$(CC) $(CFLAGS) lib/camera/camera.cpp
+%.o : %.cpp
+	$(CC) $(CFLAGS) $< -o $@
 
-web_camera.o: lib/camera/web_camera.cpp
-	$(CC) $(CFLAGS) lib/camera/web_camera.cpp
-
-filter_chain.o: lib/filter/filter_chain.cpp
-	$(CC) $(CFLAGS) lib/filter/filter_chain.cpp
-
-filter.o: lib/filter/filter.cpp
-	$(CC) $(CFLAGS) lib/filter/filter.cpp
-
-frame_grab.o: lib/filter/frame_grab.cpp
-	$(CC) $(CFLAGS) lib/filter/frame_grab.cpp
-
-gaussian_blur.o: lib/filter/gaussian_blur.cpp
-	$(CC) $(CFLAGS) lib/filter/gaussian_blur.cpp
-
-clean:
-	rm -f *.o $(EXECUTABLE)
+clean :
+	rm -f $(BUILDDIR)/$(TARGET)

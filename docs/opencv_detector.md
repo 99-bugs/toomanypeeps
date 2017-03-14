@@ -31,9 +31,9 @@ make
 
 ## Running the OpenCV C++ app
 
-Traverse to the *opencv_detector* dir and run the `peeps` binary.
+Traverse to the *opencv_detector/build* dir and run the `peeps` binary.
 
 ```
-cd opencv_detector
+cd opencv_detector/build
 ./peeps
 ```
