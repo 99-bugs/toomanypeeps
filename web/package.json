@@ -9,14 +9,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/99-bugs/tomanypeeps.git"
+    "url": "git+https://github.com/99-bugs/toomanypeeps.git"
   },
   "author": "Sille Van Landschoot <info@sillevl.be>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/99-bugs/tomanypeeps/issues"
+    "url": "https://github.com/99-bugs/toomanypeeps/issues"
   },
-  "homepage": "https://github.com/99-bugs/tomanypeeps#readme",
+  "homepage": "https://github.com/99-bugs/toomanypeeps#readme",
   "dependencies": {
     "express": "^4.15.2",
     "express-handlebars": "^3.0.0"

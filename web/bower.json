@@ -6,7 +6,7 @@
     "Sille Van Landschoot <info@sillevl.be>"
   ],
   "license": "MIT",
-  "homepage": "https://github.com/99-bugs/tomanypeeps",
+  "homepage": "https://github.com/99-bugs/toomanypeeps",
   "ignore": [
     "**/.*",
     "node_modules",
