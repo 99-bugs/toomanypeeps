@@ -1,11 +1,11 @@
 #pragma once
 
-#include "filter.h"
+#include "types/output_filter.h"
 #include "../camera/camera.h"
 
 namespace TooManyPeeps {
 
-  class FrameGrab : public Filter {
+  class FrameGrab : public OutputFilter {
     private:
       Camera * camera;
 

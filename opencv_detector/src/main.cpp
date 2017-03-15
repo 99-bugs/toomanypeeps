@@ -2,6 +2,7 @@
 #include "lib/filter/filter_chain.h"
 #include "lib/filter/frame_grab.h"
 #include "lib/filter/gaussian_blur.h"
+#include "lib/filter/display.h"
 
 using namespace TooManyPeeps;
 
@@ -16,19 +17,13 @@ int main()
   FilterChain blobDetect;
 
   blobDetect.add(new FrameGrab(original, &camera));
+  blobDetect.add(new Display(original, "Original"));
   blobDetect.add(new GaussianBlur(original, blurred, 50));
   blobDetect.add(new GaussianBlur(blurred, evenMoreBlurred, 1000));
+  blobDetect.add(new Display(evenMoreBlurred, "Even more Blurred"));
 
   do {
     blobDetect.execute();
-
-    // [TODO] This can be filter too
-    cv::imshow("this is you, smile! :)", blurred);
-    if( cv::waitKey(10) == 27 ) break; // stop capturing by pressing ESC
-
-    cv::imshow("BLURRED", evenMoreBlurred);
-    if( cv::waitKey(10) == 27 ) break; // stop capturing by pressing ESC
-
   } while (true);
 
   return 0;

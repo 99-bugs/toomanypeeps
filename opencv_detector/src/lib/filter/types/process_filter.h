@@ -1,22 +1,23 @@
 #pragma once
 
-#include <opencv2/opencv.hpp>
+#include "input_filter.h"
+#include "output_filter.h"
 
 namespace TooManyPeeps {
 
-  class Filter {
+  class ProcessFilter : public Filter {
+
     private:
       const cv::Mat& original;
       cv::Mat& result;
 
     public:
-      Filter(const cv::Mat& original, cv::Mat& result);
-      virtual ~Filter(void);
+      ProcessFilter(const cv::Mat& original, cv::Mat& result);
 
     public:
       virtual void execute(void) = 0;
 
-    protected:
+    public:
       const cv::Mat& get_original(void);
       cv::Mat& get_result(void);
 

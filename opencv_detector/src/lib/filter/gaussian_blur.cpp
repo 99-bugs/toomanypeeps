@@ -3,7 +3,7 @@
 namespace TooManyPeeps {
 
   GaussianBlur::GaussianBlur(const cv::Mat& original, cv::Mat& result, double blurFactor, int kernelSize)
-    : Filter(original, result) {
+    : ProcessFilter(original, result) {
     this->kernelSize = kernelSize;
     this->blurFactor = blurFactor;
   }

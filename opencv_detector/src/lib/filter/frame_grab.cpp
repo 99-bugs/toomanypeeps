@@ -3,8 +3,7 @@
 namespace TooManyPeeps {
 
   FrameGrab::FrameGrab(cv::Mat& result, Camera * camera)
-    : Filter(result, result) {
-      // Set original to result too. Best choice ???? Who knows
+    : OutputFilter(result) {
     this->camera = camera;
   }
 

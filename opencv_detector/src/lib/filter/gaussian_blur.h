@@ -1,10 +1,10 @@
 #pragma once
 
-#include "filter.h"
+#include "types/process_filter.h"
 
 namespace TooManyPeeps {
 
-  class GaussianBlur : public Filter {
+  class GaussianBlur : public ProcessFilter {
     private:
       int kernelSize;
       int blurFactor;
