@@ -1,19 +1,23 @@
 #pragma once
 
-#include "types/filter.h"
+#include "types/process_filter.h"
 
 namespace TooManyPeeps {
 
-  // class GaussianBlur : public Filter {
-  //   private:
-  //     int kernelSize;
-  //     int blurFactor;
-  //
-  //   public:
-  //     GaussianBlur(const cv::Mat& original, cv::Mat& result, double blurFactor, int kernelSize=5);
-  //
-  //   public:
-  //     virtual void execute(void);
-  // };
+  class BackgroundExtractor : public ProcessFilter {
+
+    private:
+      static const bool TRACK_SHADOWS = false;
+
+    private:
+      cv::Ptr<cv::BackgroundSubtractor> backgroundExtractor;
+
+    public:
+      BackgroundExtractor(const cv::Mat& original, cv::Mat& result, int historySize, double threshold);
+      ~BackgroundExtractor(void);
+
+    public:
+      virtual void execute(void);
+  };
 
 };

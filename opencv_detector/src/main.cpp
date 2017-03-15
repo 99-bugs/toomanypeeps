@@ -3,6 +3,7 @@
 #include "lib/filter/frame_grab.h"
 #include "lib/filter/gaussian_blur.h"
 #include "lib/filter/display.h"
+#include "lib/filter/background_extractor.h"
 
 using namespace TooManyPeeps;
 
@@ -12,15 +13,15 @@ int main()
 
   cv::Mat original;
   cv::Mat blurred;
-  cv::Mat evenMoreBlurred;
+  cv::Mat mog2Processed;
 
   FilterChain blobDetect;
 
   blobDetect.add(new FrameGrab(original, &camera));
   blobDetect.add(new Display(original, "Original"));
-  blobDetect.add(new GaussianBlur(original, blurred, 50));
-  blobDetect.add(new GaussianBlur(blurred, evenMoreBlurred, 1000));
-  blobDetect.add(new Display(evenMoreBlurred, "Even more Blurred"));
+  blobDetect.add(new GaussianBlur(original, blurred, 5));
+  blobDetect.add(new BackgroundExtractor(blurred, mog2Processed, 100, 16));
+  blobDetect.add(new Display(mog2Processed, "After Background Extractor"));
 
   do {
     blobDetect.execute();
