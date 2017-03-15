@@ -7,6 +7,7 @@
 #include "lib/filter/binary_threshold.h"
 #include "lib/filter/dilate.h"
 #include "lib/filter/erode.h"
+#include "lib/filter/blur.h"
 
 using namespace TooManyPeeps;
 
@@ -18,6 +19,7 @@ int main()
   cv::Mat blurred;
   cv::Mat mog2Processed;
   cv::Mat detection;
+  cv::Mat otherBlur;
 
   FilterChain blobDetect;
 
@@ -28,6 +30,8 @@ int main()
   blobDetect.add(new Dilate(mog2Processed, detection, 10));
   blobDetect.add(new Erode(detection, detection, 5));
   blobDetect.add(new Display(detection, "Final Result"));
+  blobDetect.add(new Blur(original, otherBlur, 5));
+  blobDetect.add(new Display(otherBlur, "Other Blur Result"));
 
   do {
     blobDetect.execute();
