@@ -4,6 +4,9 @@
 #include "lib/filter/gaussian_blur.h"
 #include "lib/filter/display.h"
 #include "lib/filter/background_extractor.h"
+#include "lib/filter/binary_threshold.h"
+#include "lib/filter/dilate.h"
+#include "lib/filter/erode.h"
 
 using namespace TooManyPeeps;
 
@@ -14,6 +17,7 @@ int main()
   cv::Mat original;
   cv::Mat blurred;
   cv::Mat mog2Processed;
+  cv::Mat detection;
 
   FilterChain blobDetect;
 
@@ -21,7 +25,9 @@ int main()
   blobDetect.add(new Display(original, "Original"));
   blobDetect.add(new GaussianBlur(original, blurred, 5));
   blobDetect.add(new BackgroundExtractor(blurred, mog2Processed, 100, 16));
-  blobDetect.add(new Display(mog2Processed, "After Background Extractor"));
+  blobDetect.add(new Dilate(mog2Processed, detection, 10));
+  blobDetect.add(new Erode(detection, detection, 5));
+  blobDetect.add(new Display(detection, "Final Result"));
 
   do {
     blobDetect.execute();
