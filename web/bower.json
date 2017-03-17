@@ -1,0 +1,21 @@
+{
+  "name": "tomannypeeps",
+  "description": "Webinterface for tomanypeeps people counter",
+  "main": "server.js",
+  "authors": [
+    "Sille Van Landschoot <info@sillevl.be>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/99-bugs/toomanypeeps",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "chart.js": "^2.5.0",
+    "moment": "^2.17.1"
+  }
+}
