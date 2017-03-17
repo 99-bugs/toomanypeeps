@@ -1,1 +1,30 @@
 <h1>Example App: Home</h1>
+
+<div>
+  <div>
+    <h3>Total</h3>
+    <div class="graphs" align="center">
+      <div style="margin-top: -60px; margin-bottom: -60px;">
+        <h4 align="center" style="display:inline-flex;">Visitors Today:</h4>
+        <h5 id="totalIn" style='margin-right: 10px;' class="numbers">0</h5>
+        <h4 align="center" style="display:inline-flex;">Number of People Currently in The Building:</h4>
+        <h5 id="currentNumber" class="numbers">0</h5>
+      </div>
+      <canvas style='margin-left: 5px;' id="totalChart" width='900' height='300' ></canvas>
+      <div style='margin-bottom: 10px;' id="totalLegend"></div>
+    </div>
+  </div>
+  <div>
+    <h3>Traffic</h3>
+    <div class="graphs" align="center">
+      <div style="margin-top: -60px; margin-bottom: -60px;">
+        <h4 class="people">Traffic In:</h4>
+        <h5 id="peopleIn" class="numbers">0</h5>
+        <h4 class="people">Traffic Out:</h4>
+        <h5 id="peopleOut" class="numbers">0</h5>
+      </div>
+      <canvas id="trafficChart" width='900' height='300'></canvas>
+      <div style='margin-bottom: 10px;' id="trafficLegend"></div>
+    </div>
+  </div>
+</div>

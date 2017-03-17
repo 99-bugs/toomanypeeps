@@ -27,7 +27,9 @@ module.exports = function(grunt) {
             dist: {
                 src: [
                     'bower_components/jquery/dist/jquery.min.js',
-                    'bower_components/foundation-sites/dist/foundation.js',
+                    'bower_components/foundation-sites/dist/js/foundation.js',
+                    'bower_components/moment/moment.js',
+                    'bower_components/chart.js/dist/Chart.min.js',
                     'assets/js/*.js'
                 ],
                 dest: 'public/js/app.js'
@@ -40,6 +42,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-contrib-concat');
 
     grunt.registerTask('assets', ['sass', 'concat']);
-    grunt.registerTask('watch', ['assets', 'watch']);
+    // grunt.registerTask('watch', ['assets', 'watch']);
     grunt.registerTask('default', ['assets']);
 };
