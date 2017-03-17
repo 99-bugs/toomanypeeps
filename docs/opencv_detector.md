@@ -6,29 +6,14 @@
 
 ## Dependencies
 
-### Installing OpenCV
-
-Clone this repo for an automatic installation script:
-
-```
-cd
-git clone https://github.com/jayrambhia/Install-OpenCV
-```
-
-Next execute the script for your OS. For example for Ubuntu:
-
-```
-cd ubuntu
-./opencv_latest.sh
-```
-
-Now you are ready to compile OpenCV apps.
+* [Install OpenCV](opencv.md)
+* [Install Mqtt](mqtt.md)
 
 ## Compiling the OpenCV C++ app
 
 Just execute a `make` inside the *opencv_detector* directory:
 
-```
+```shell
 cd opencv_detector
 make
 ```
@@ -37,7 +22,7 @@ make
 
 Traverse to the *opencv_detector/build* dir and run the `peeps` binary.
 
-```
+```shell
 cd opencv_detector/build
 ./peeps
 ```
