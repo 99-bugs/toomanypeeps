@@ -11,6 +11,7 @@ namespace TooManyPeeps {
 
     public:
       WebCamera(void);
+      virtual ~WebCamera(void);
 
     public:
       virtual cv::Mat grab_frame(void);

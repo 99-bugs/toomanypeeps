@@ -9,6 +9,10 @@ namespace TooManyPeeps {
     }
   }
 
+  WebCamera::~WebCamera(void) {
+    captureDevice.release();
+  }
+
   cv::Mat WebCamera::grab_frame(void) {
     cv::Mat frame;
     captureDevice >> frame;
