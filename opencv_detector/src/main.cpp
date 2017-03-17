@@ -9,7 +9,14 @@
 #include "lib/filter/erode.h"
 #include "lib/filter/blur.h"
 
+#include "lib/mqtt/simple_mqtt_publisher.h"
+
+const std::string ADDRESS("tcp://broker.mqttdashboard.com");
+const std::string CLIENTID("SyncPublisher");
+const std::string TOPIC("vives/hello");
+
 using namespace TooManyPeeps;
+using namespace TooManyPeeps::Mqtt;
 
 int main()
 {
@@ -32,6 +39,11 @@ int main()
   blobDetect.add(new Display(detection, "Final Result"));
   blobDetect.add(new Blur(original, otherBlur, 5));
   blobDetect.add(new Display(otherBlur, "Other Blur Result"));
+
+	SimpleMqttPublisher mqttPublisher(ADDRESS, CLIENTID);
+  mqttPublisher.set_default_topic(TOPIC);
+
+  mqttPublisher.publish("Dude like hello and shit");
 
   do {
     blobDetect.execute();
