@@ -6,6 +6,10 @@ namespace TooManyPeeps {
     isDone = false;
   }
 
+  Camera::~Camera(void) {
+
+  }
+
   bool Camera::is_done(void) {
     return isDone;
   }
