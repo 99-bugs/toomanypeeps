@@ -6,8 +6,10 @@
 
 ## Dependencies
 
-* [Install OpenCV](opencv.md)
+* [Install OpenCV on Raspberry Pi 3](opencv_raspberry_pi_3.md)
+* [Install OpenCV on Ubuntu](opencv_ubuntu.md)
 * [Install Mqtt](mqtt.md)
+* [Install RaspiCam](raspi_cam.md)
 
 ## Compiling the OpenCV C++ app
 
@@ -20,9 +22,9 @@ make
 
 ## Running the OpenCV C++ app
 
-Traverse to the *opencv_detector/build* dir and run the `peeps` binary.
+Traverse to the *opencv_detector/bin* dir and run the `peeps` binary.
 
 ```shell
-cd opencv_detector/build
+cd opencv_detector/bin
 ./peeps
 ```
