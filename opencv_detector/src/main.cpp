@@ -9,6 +9,13 @@
 #include "lib/filter/erode.h"
 #include "lib/filter/blur.h"
 #include "lib/count_reporter.h"
+#include "lib/camera/pi_camera.h"
+
+#ifdef USE_RASPBERRY_PI
+  #pragma message ("Creating Raspberry PI application")
+#else
+  #pragma message ("Creating non-Rasberry PI application")
+#endif
 
 const std::string DEVICE_IDENTIFIER("demo");
 
@@ -17,7 +24,11 @@ using namespace TooManyPeeps::Mqtt;
 
 int main()
 {
+#ifdef USE_RASPBERRY_PI
+  PiCamera camera;
+#else
   WebCamera camera;
+#endif
 
   cv::Mat original;
   cv::Mat blurred;

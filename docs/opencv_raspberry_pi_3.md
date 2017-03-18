@@ -8,7 +8,7 @@ Do a raspi-config and enable the camera and Full openGL driver. Also make sure t
 sudo raspi-config
 ```
 
-Update Raspberry Pi firmware
+Update Raspberry Pi firmware (needed for newer video drivers and all)
 
 ```shell
 sudo apt-get update

@@ -13,6 +13,15 @@
 
 ## Compiling the OpenCV C++ app
 
+Just execute a `make USE_PI=1` inside the *opencv_detector* directory:
+
+```shell
+cd opencv_detector
+make USE_PI=1
+```
+
+## Compiling the OpenCV C++ app for development system
+
 Just execute a `make` inside the *opencv_detector* directory:
 
 ```shell
