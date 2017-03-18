@@ -27,7 +27,9 @@ mqtt.on('message', function(topic, message) {
             state[sensor_id] -= message.value
             break;
         case 'reset':
-            state[sensor_id] = 0
+            if(message.reset){
+              state[sensor_id] = 0
+            }
             break;
         default:
     }
