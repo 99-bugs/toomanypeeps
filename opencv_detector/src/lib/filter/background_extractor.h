@@ -7,7 +7,7 @@ namespace TooManyPeeps {
   class BackgroundExtractor : public ProcessFilter {
 
     private:
-      static const bool TRACK_SHADOWS = false;
+      static const bool TRACK_SHADOWS = true;
 
     private:
       cv::Ptr<cv::BackgroundSubtractor> backgroundExtractor;
