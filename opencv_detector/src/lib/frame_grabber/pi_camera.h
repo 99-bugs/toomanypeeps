@@ -1,6 +1,6 @@
 #pragma once
 
-#include "camera.h"
+#include "frame_grabber.h"
 
 #ifdef USE_RASPBERRY_PI
   #include <raspicam/raspicam_cv.h>
@@ -10,7 +10,7 @@
 
 namespace TooManyPeeps {
 
-  class PiCamera : public Camera
+  class PiCamera : public FrameGrabber
   {
     private:
     #ifdef USE_RASPBERRY_PI

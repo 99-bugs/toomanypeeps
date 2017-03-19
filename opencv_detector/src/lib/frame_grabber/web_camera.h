@@ -1,10 +1,10 @@
 #pragma once
 
-#include "camera.h"
+#include "frame_grabber.h"
 
 namespace TooManyPeeps {
 
-  class WebCamera : public Camera
+  class WebCamera : public FrameGrabber
   {
     private:
       cv::VideoCapture captureDevice;

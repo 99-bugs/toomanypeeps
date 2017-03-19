@@ -4,14 +4,14 @@
 
 namespace TooManyPeeps {
 
-  class Camera
+  class FrameGrabber
   {
     private:
       bool isDone;
 
     public:
-      Camera(void);
-      virtual ~Camera(void);
+      FrameGrabber(void);
+      virtual ~FrameGrabber(void);
 
     public:
       virtual cv::Mat grab_frame(void) = 0;

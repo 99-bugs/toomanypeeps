@@ -1,4 +1,4 @@
-#include "lib/camera/web_camera.h"
+#include "lib/frame_grabber/web_camera.h"
 #include "lib/filter/filter_chain.h"
 #include "lib/filter/frame_grab.h"
 #include "lib/filter/gaussian_blur.h"
@@ -9,7 +9,7 @@
 #include "lib/filter/erode.h"
 #include "lib/filter/blur.h"
 #include "lib/count_reporter.h"
-#include "lib/camera/pi_camera.h"
+#include "lib/frame_grabber/pi_camera.h"
 #include <ctime>
 
 #ifdef USE_RASPBERRY_PI
