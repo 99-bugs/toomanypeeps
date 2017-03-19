@@ -10,6 +10,7 @@
 #include "lib/filter/blur.h"
 #include "lib/count_reporter.h"
 #include "lib/camera/pi_camera.h"
+#include <ctime>
 
 #ifdef USE_RASPBERRY_PI
   #pragma message ("Creating Raspberry PI application")
@@ -53,7 +54,10 @@ int main()
   countReporter.out(16);
 
   do {
+    double time_=cv::getTickCount();
     blobDetect.execute();
+    double secondsElapsed= double ( cv::getTickCount()-time_ ) /double ( cv::getTickFrequency() );
+    std::cout << "FPS = " << (1.0 /secondsElapsed ) << std::endl;
   } while (true);
 
   return 0;
