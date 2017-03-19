@@ -13,7 +13,7 @@ Download the latest version from https://sourceforge.net/projects/raspicam/files
 ```shell
 cd
 wget https://downloads.sourceforge.net/project/raspicam/raspicam-0.1.6.zip
-  unzip raspicam-0.1.6.zip
+unzip raspicam-0.1.6.zip
 cd raspicam-0.1.6
 mkdir build
 cd build
