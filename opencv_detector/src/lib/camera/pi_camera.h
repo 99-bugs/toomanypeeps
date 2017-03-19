@@ -28,6 +28,13 @@ namespace TooManyPeeps {
     public:
       virtual cv::Mat grab_frame(void);
 
+    public:
+      void set_width(int width=640);
+      void set_height(int height=480);
+      void set_framerate(int framesPerSecond=5);
+      void color_mode(void);
+      void grey_mode(void);
+
   };
 
 };
