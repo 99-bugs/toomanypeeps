@@ -10,6 +10,7 @@
 #include "lib/filter/blur.h"
 #include "lib/count_reporter.h"
 #include "lib/frame_grabber/pi_camera.h"
+#include "lib/frame_grabber/video_file.h"
 #include <ctime>
 
 #ifdef USE_RASPBERRY_PI
@@ -23,35 +24,49 @@ const std::string DEVICE_IDENTIFIER("demo");
 using namespace TooManyPeeps;
 using namespace TooManyPeeps::Mqtt;
 
-int main()
+int main(int argc, const char * argv[])
 {
-#ifdef USE_RASPBERRY_PI
-  PiCamera camera;
+#if defined(USE_RASPBERRY_PI)
+  PiCamera frame_grabber;
+  frame_grabber.set_width(320);
+  frame_grabber.set_height(240);
+#elif defined(USE_VIDEO_FILE)
+  std::string filename = "./video_samples/demo.avi";
+  if (argc >= 2) {
+    filename = std::string(argv[1]);
+  }
+  VideoFile frame_grabber(filename);
 #else
-  WebCamera camera;
+  WebCamera frame_grabber;
 #endif
 
   cv::Mat original;
-  cv::Mat blurred;
+  cv::Mat preProcess;
   cv::Mat mog2Processed;
-  cv::Mat detection;
-  cv::Mat otherBlur;
+  cv::Mat postProcess;
 
   FilterChain blobDetect;
 
-  blobDetect.add(new FrameGrab(original, &camera));
+  blobDetect.add(new FrameGrab(original, &frame_grabber));
   blobDetect.add(new Display(original, "Original"));
-  blobDetect.add(new GaussianBlur(original, blurred, 5));
-  blobDetect.add(new BackgroundExtractor(blurred, mog2Processed, 100, 16));
-  blobDetect.add(new Dilate(mog2Processed, detection, 10));
-  blobDetect.add(new Erode(detection, detection, 5));
-  blobDetect.add(new Display(detection, "Final Result"));
-  blobDetect.add(new Blur(original, otherBlur, 5));
-  blobDetect.add(new Display(otherBlur, "Other Blur Result"));
+  blobDetect.add(new GaussianBlur(original, preProcess, 5));
+  blobDetect.add(new BackgroundExtractor(preProcess, mog2Processed, 100, 16));
 
-	CountReporter countReporter(DEVICE_IDENTIFIER);
-  countReporter.in(5);
-  countReporter.out(16);
+  blobDetect.add(new BinaryThreshold(mog2Processed, postProcess, 200));
+  blobDetect.add(new Blur(postProcess, postProcess, 5));
+  blobDetect.add(new Dilate(postProcess, postProcess, 5));
+  blobDetect.add(new Erode(postProcess, postProcess, 3));
+  blobDetect.add(new Dilate(postProcess, postProcess, 5));
+  blobDetect.add(new GaussianBlur(postProcess, postProcess, 10));
+
+  // Leave this
+  blobDetect.add(new BinaryThreshold(postProcess, postProcess, 50));
+  blobDetect.add(new Erode(postProcess, postProcess, 2));
+  blobDetect.add(new Display(postProcess, "Post-Processed"));
+
+	// CountReporter countReporter(DEVICE_IDENTIFIER);
+  // countReporter.in(5);
+  // countReporter.out(16);
 
   do {
     double time_=cv::getTickCount();
