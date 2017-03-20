@@ -6,7 +6,7 @@
 namespace TooManyPeeps {
 
   Tracker::Tracker(void)
-    : contourFinder(0, 1000) {
+    : contourFinder(5000, 50000) {
   }
 
   Tracker::~Tracker(void) {

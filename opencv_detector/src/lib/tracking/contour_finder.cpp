@@ -2,7 +2,7 @@
 
 namespace TooManyPeeps {
 
-  ContourFinder::ContourFinder(int minimumArea, int maximumArea) {
+  ContourFinder::ContourFinder(double minimumArea, double maximumArea) {
     this->minimumArea = minimumArea;
     this->maximumArea = maximumArea;
   }
@@ -23,23 +23,38 @@ namespace TooManyPeeps {
   void ContourFinder::filter(std::vector<std::vector<cv::Point>> * allContours,
     std::vector<cv::Vec4i> * allHierarchies) {
 
+    std::vector<size_t> indicesOfContoursTokeep;
+    std::vector<double> areasOfContoursToKeep;
+
+    for (size_t i = 0; i < allContours->size(); i++) {
+      double area = cv::contourArea(cv::Mat((*allContours)[i]));
+      std::cout << "Area [" << i << "] = " << area;
+      if (area <= maximumArea && area >= minimumArea) {
+        std::cout << " <= kept" << std::endl;
+        indicesOfContoursTokeep.push_back(i);
+        areasOfContoursToKeep.push_back(area);
+      } else {
+          std::cout << " <= ditched" << std::endl;
+      }
+    }
+
     contours.clear();
     hierarchy.clear();
     boundingRectangles.clear();
 
     // No actual filtering for the moment
-    for (size_t i = 0; i < allContours->size(); i++) {
-      contours.push_back((*allContours)[i]);
-      hierarchy.push_back((*allHierarchies)[i]);
+    for (size_t i = 0; i < indicesOfContoursTokeep.size(); i++) {
+      contours.push_back((*allContours)[indicesOfContoursTokeep[i]]);
+      hierarchy.push_back((*allHierarchies)[indicesOfContoursTokeep[i]]);
       boundingRectangles.push_back(cv::boundingRect(contours[i]));
     }
   }
 
   void ContourFinder::draw(cv::Mat& frame) {
-    for( int idx = 0; idx >= 0; idx = hierarchy[idx][0] )
+    for(size_t i = 0; i < contours.size(); i++)
     {
         cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-        cv::drawContours(frame, contours, idx, color, cv::FILLED, 8, hierarchy);
+        cv::drawContours(frame, contours, i, color, cv::FILLED, 8, hierarchy);
     }
 
     for (size_t i = 0; i < boundingRectangles.size(); i++) {

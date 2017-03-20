@@ -12,11 +12,11 @@ namespace TooManyPeeps {
       std::vector<cv::Vec4i> hierarchy;
       std::vector<cv::Rect> boundingRectangles;
 
-      int minimumArea;
-      int maximumArea;
+      double minimumArea;
+      double maximumArea;
 
     public:
-      ContourFinder(int minimumArea, int maximumArea);
+      ContourFinder(double minimumArea, double maximumArea);
 
     public:
       void find(const cv::Mat& frame);
