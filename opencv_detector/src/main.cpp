@@ -11,6 +11,7 @@
 #include "lib/count_reporter.h"
 #include "lib/frame_grabber/pi_camera.h"
 #include "lib/frame_grabber/video_file.h"
+#include "lib/tracking/tracker.h"
 #include <ctime>
 
 #ifdef USE_RASPBERRY_PI
@@ -62,17 +63,20 @@ int main(int argc, const char * argv[])
   // Leave this
   blobDetect.add(new BinaryThreshold(postProcess, postProcess, 50));
   blobDetect.add(new Erode(postProcess, postProcess, 2));
-  blobDetect.add(new Display(postProcess, "Post-Processed"));
+  // blobDetect.add(new Display(postProcess, "Post-Processed"));
 
 	// CountReporter countReporter(DEVICE_IDENTIFIER);
   // countReporter.in(5);
   // countReporter.out(16);
+
+  Tracker tracker;
 
   do {
     double time_=cv::getTickCount();
     blobDetect.execute();
     double secondsElapsed= double ( cv::getTickCount()-time_ ) /double ( cv::getTickFrequency() );
     std::cout << "FPS = " << (1.0 /secondsElapsed ) << std::endl;
+    tracker.find_contours(postProcess, original);
   } while (true);
 
   return 0;
