@@ -1,19 +1,21 @@
+//Based on: http://stackoverflow.com/questions/1723066/c-stl-custom-sorting-one-vector-based-on-contents-of-another
+
 #pragma once
 
 #include <vector>
 
 namespace TooManyPeeps {
 
-  struct CompareContourArea
+  struct CompareContourArea : std::binary_function<size_t, size_t, bool>
   {
-    const std::vector<double> & areas;
+    const std::vector<double> & _areas;
 
     CompareContourArea(const std::vector<double> & areas)
-      : areas(areas) {
+      : _areas(areas) {
     }
 
     bool operator()(size_t left, size_t right) const {
-      return areas[left] > areas[right];
+      return _areas[left] > _areas[right];
     }
 
   };

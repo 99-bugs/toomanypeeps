@@ -7,6 +7,7 @@ namespace TooManyPeeps {
     : ProcessFilter(original, result) {
 
     backgroundExtractor = cv::createBackgroundSubtractorMOG2(historySize, threshold, TRACK_SHADOWS);
+    // If TRACK_SHADOWS = true, shadows are also marked in result with value = 127
   }
 
   BackgroundExtractor::~BackgroundExtractor(void) {

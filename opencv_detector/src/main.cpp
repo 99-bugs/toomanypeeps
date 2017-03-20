@@ -32,7 +32,7 @@ int main(int argc, const char * argv[])
   frame_grabber.set_width(320);
   frame_grabber.set_height(240);
 #elif defined(USE_VIDEO_FILE)
-  std::string filename = "./video_samples/demo.avi";
+  std::string filename = "./video_samples/lab_demo.mp4";
   if (argc >= 2) {
     filename = std::string(argv[1]);
   }
@@ -40,6 +40,9 @@ int main(int argc, const char * argv[])
 #else
   WebCamera frame_grabber;
 #endif
+
+  bool paused = false;
+  bool step = false;
 
   cv::Mat original;
   cv::Mat preProcess;
@@ -49,11 +52,10 @@ int main(int argc, const char * argv[])
   FilterChain blobDetect;
 
   blobDetect.add(new FrameGrab(original, &frame_grabber));
-  blobDetect.add(new Display(original, "Original"));
   blobDetect.add(new GaussianBlur(original, preProcess, 5));
   blobDetect.add(new BackgroundExtractor(preProcess, mog2Processed, 100, 16));
 
-  blobDetect.add(new BinaryThreshold(mog2Processed, postProcess, 200));
+  blobDetect.add(new BinaryThreshold(mog2Processed, postProcess, 200)); // Remove shadows
   blobDetect.add(new Blur(postProcess, postProcess, 5));
   blobDetect.add(new Dilate(postProcess, postProcess, 5));
   blobDetect.add(new Erode(postProcess, postProcess, 3));
@@ -72,11 +74,24 @@ int main(int argc, const char * argv[])
   Tracker tracker;
 
   do {
-    double time_=cv::getTickCount();
-    blobDetect.execute();
-    double secondsElapsed= double ( cv::getTickCount()-time_ ) /double ( cv::getTickFrequency() );
-    std::cout << "FPS = " << (1.0 /secondsElapsed ) << std::endl;
-    tracker.find_contours(postProcess, original);
+    if (!paused || step) {
+      double time_=cv::getTickCount();
+      blobDetect.execute();
+      double secondsElapsed= double ( cv::getTickCount()-time_ ) /double ( cv::getTickFrequency() );
+      std::cout << "FPS = " << (1.0 /secondsElapsed ) << std::endl;
+      tracker.find_contours(postProcess);
+      tracker.draw(original);
+      cv::imshow("Contours", original);
+      step = false;
+    }
+
+    char key = cv::waitKey(100);
+    if(key == 'p') {
+      paused = !paused;
+    } else if (key == 's') {
+      step = true;
+    }
+
   } while (true);
 
   return 0;

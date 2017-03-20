@@ -55,6 +55,32 @@ namespace TooManyPeeps {
       hierarchy.push_back((*allHierarchies)[indicesOfContoursTokeep[i]]);
       boundingRectangles.push_back(cv::boundingRect(contours[i]));
     }
+
+    use_mass_centers_as_reference();
+    //use_bounding_rectangle_centers_as_reference();
+  }
+
+  void ContourFinder::use_bounding_rectangle_centers_as_reference(void) {
+    objectReferencePoints.clear();
+    for (size_t i = 0; i < boundingRectangles.size(); i++) {
+      objectReferencePoints.push_back(cv::Point2f((boundingRectangles[i].x + boundingRectangles[i].width)/2,
+      (boundingRectangles[i].y + boundingRectangles[i].height)/2));
+    }
+  }
+
+  void ContourFinder::use_mass_centers_as_reference(void) {
+      // Moments
+      std::vector<cv::Moments> contourMoments(contours.size());
+      for (size_t i = 0; i < contours.size(); i++) {
+        contourMoments[i] = cv::moments(contours[i], false);
+      }
+
+      // Mass centers
+      objectReferencePoints.clear();
+      for (size_t i = 0; i < contours.size(); i++) {
+        objectReferencePoints.push_back(cv::Point2f(contourMoments[i].m10/contourMoments[i].m00,
+          contourMoments[i].m01/contourMoments[i].m00));
+      }
   }
 
   void ContourFinder::draw(cv::Mat& frame) {
@@ -69,6 +95,15 @@ namespace TooManyPeeps {
       int thickness = 3;
       cv::rectangle(frame, boundingRectangles[i], color, thickness);
     }
+
+    for (size_t i = 0; i < contours.size(); i++) {
+      cv::Scalar color( rand()&255, rand()&255, rand()&255 );
+      cv::circle(frame, objectReferencePoints[i], 4, color, -1);
+    }
+  }
+
+  std::vector<cv::Point2f> ContourFinder::get_object_reference_points(void) {
+    return objectReferencePoints;
   }
 
 };
