@@ -25,11 +25,13 @@ namespace TooManyPeeps {
 
     contours.clear();
     hierarchy.clear();
+    boundingRectangles.clear();
 
     // No actual filtering for the moment
     for (size_t i = 0; i < allContours->size(); i++) {
       contours.push_back((*allContours)[i]);
       hierarchy.push_back((*allHierarchies)[i]);
+      boundingRectangles.push_back(cv::boundingRect(contours[i]));
     }
   }
 
@@ -38,6 +40,12 @@ namespace TooManyPeeps {
     {
         cv::Scalar color( rand()&255, rand()&255, rand()&255 );
         cv::drawContours(frame, contours, idx, color, cv::FILLED, 8, hierarchy);
+    }
+
+    for (size_t i = 0; i < boundingRectangles.size(); i++) {
+      cv::Scalar color( rand()&255, rand()&255, rand()&255 );
+      int thickness = 3;
+      cv::rectangle(frame, boundingRectangles[i], color, thickness);
     }
   }
 
