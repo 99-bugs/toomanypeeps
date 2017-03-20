@@ -16,6 +16,7 @@
   ],
   "dependencies": {
     "chart.js": "^2.5.0",
-    "moment": "^2.17.1"
+    "moment": "^2.17.1",
+    "paho-mqtt-js": "^1.0.1"
   }
 }
