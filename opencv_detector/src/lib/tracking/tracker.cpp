@@ -17,7 +17,7 @@ namespace TooManyPeeps {
     contourFinder.draw(original);
 
     cv::imshow("Contours", original);
-    cv::waitKey(250);
+    cv::waitKey(100);
   }
 
 };

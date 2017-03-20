@@ -1,4 +1,5 @@
 #include "contour_finder.h"
+#include "compare_contour_area.h"
 
 namespace TooManyPeeps {
 
@@ -36,6 +37,12 @@ namespace TooManyPeeps {
       } else {
           std::cout << " <= ditched" << std::endl;
       }
+    }
+
+    // Sort by size
+    if (indicesOfContoursTokeep.size() > 1) {
+      std::sort(indicesOfContoursTokeep.begin(), indicesOfContoursTokeep.end(),
+        CompareContourArea(areasOfContoursToKeep));
     }
 
     contours.clear();
