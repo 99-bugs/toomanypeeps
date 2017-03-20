@@ -35,5 +35,6 @@ $white:  $base3;
 $topbar-background: $black;
 
 @import 'foundation';
+@import 'counter';
 
 @include foundation-everything;
