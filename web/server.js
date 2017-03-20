@@ -9,8 +9,8 @@ app.use(express.static('public'))
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
 app.set('view engine', 'handlebars')
 
-app.get('/', function (req, res) {
-  res.render('home')
+app.get('/:sensor_id?', function (req, res) {
+  res.render('home', { sensor_id: req.params.sensor_id || "demo"} )
 })
 
 app.listen(3000, function () {
