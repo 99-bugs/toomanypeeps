@@ -11,4 +11,8 @@ namespace TooManyPeeps {
     contourFinder.draw(get_result());
   }
 
+  std::vector<cv::Point2f> FindContours::get_object_reference_points(void) {
+    return contourFinder.get_object_reference_points();
+  }
+
 };

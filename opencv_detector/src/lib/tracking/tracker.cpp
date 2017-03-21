@@ -6,27 +6,23 @@
 
 namespace TooManyPeeps {
 
-  Tracker::Tracker(void)
-    : contourFinder(5000, 50000) {
-
+  Tracker::Tracker(int maxDeltaDistance) {
     trackedObjects.clear();
     currentLabelId = 0;
+    this->maxDeltaDistance = maxDeltaDistance;
   }
 
   Tracker::~Tracker(void) {
   }
 
-  void Tracker::find_contours(cv::Mat& image) {
-    contourFinder.find(image);
-    add_contours_to_tracked_objects();
+  void Tracker::update(const std::vector<cv::Point2f> & blobReferences) {
+    add_to_tracked_objects(blobReferences);
     update_tracked_objects();
   }
 
-  void Tracker::add_contours_to_tracked_objects(void) {
-    std::vector<cv::Point2f> objectCenters = contourFinder.get_object_reference_points();
-
-    for (size_t i = 0; i < objectCenters.size(); i++) {
-      track(objectCenters[i]);
+  void Tracker::add_to_tracked_objects(const std::vector<cv::Point2f> & blobReferences) {
+    for (size_t i = 0; i < blobReferences.size(); i++) {
+      track(blobReferences[i]);
     }
   }
 
@@ -69,7 +65,7 @@ namespace TooManyPeeps {
   }
 
   void Tracker::process_reference_point(cv::Point2f referencePoint, TrackedObject & closestObject) {
-    if (closestObject.distance_from(referencePoint) <= MAX_DELTA_DISTANCE) {
+    if (closestObject.distance_from(referencePoint) <= maxDeltaDistance) {
       std::cout << "Matching based on distance = " << closestObject.distance_from(referencePoint) << std::endl;
       closestObject.add_current_location(referencePoint);
     } else {
@@ -85,8 +81,6 @@ namespace TooManyPeeps {
   }
 
   void Tracker::draw(cv::Mat & image) {
-    contourFinder.draw(image);
-
     if (trackedObjects.size() > 0) {
       std::cout << std::endl << "TRACKED:" << std::endl;
       for (size_t i = 0; i < trackedObjects.size(); i++) {

@@ -15,6 +15,9 @@ namespace TooManyPeeps {
 
     public:
       virtual void execute(void);
+
+    public:
+      std::vector<cv::Point2f> get_object_reference_points(void);
   };
 
 };

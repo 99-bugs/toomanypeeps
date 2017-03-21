@@ -9,21 +9,20 @@ namespace TooManyPeeps {
   class Tracker
   {
     private:
-      static const int MAX_DELTA_DISTANCE = 24;
-      ContourFinder contourFinder;
+      int maxDeltaDistance;
       std::vector<TrackedObject> trackedObjects;
       int currentLabelId;
 
     public:
-      Tracker(void);
+      Tracker(int maxDeltaDistance=24);
       ~Tracker(void);
 
     public:
-      void find_contours(cv::Mat& image);
+      void update(const std::vector<cv::Point2f> & blobReferences);
       void draw(cv::Mat & image);
 
     private:
-      void add_contours_to_tracked_objects(void);
+      void add_to_tracked_objects(const std::vector<cv::Point2f> & blobReferences);
       void update_tracked_objects(void);
       void track(cv::Point2f referencePoint);
       size_t get_index_of_closest_object(cv::Point2f referencePoint);

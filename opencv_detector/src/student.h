@@ -16,6 +16,7 @@
 #include "lib/frame_grabber/video_file.h"
 #include "lib/tracking/tracker.h"
 #include "lib/filter/find_contours.h"
+#include "lib/filter/track_objects.h"
 #include <iostream>
 #include <sstream>
 
