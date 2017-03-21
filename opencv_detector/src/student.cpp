@@ -20,11 +20,17 @@ void init(FrameGrabber * frameGrabber) {
 
   filters.add(new BackgroundExtractor(preProcess, mog2Processed, 100, 16));
 
+  // Kunnen we hier eigenlijk niet beter een redelijke erode doen en pas dan dilate?
+  // Dit zou twee licht aan elkaar hangende blobs kunnen van elkaar halen
+
+  // Weghalen van de schaduwen die door de BackgroundExtractor worden toegevoegd
   filters.add(new BinaryThreshold(mog2Processed, postProcess, 200)); // Remove shadows
   filters.add(new Blur(postProcess, postProcess, 5));
   filters.add(new Dilate(postProcess, postProcess, 5));
   filters.add(new Erode(postProcess, postProcess, 3));
   filters.add(new Dilate(postProcess, postProcess, 5));
+
+  // Dit gaat volgens mij kleine gaten opvullen samen met de opvolgende THreshold
   filters.add(new GaussianBlur(postProcess, postProcess, 10));
 
   // Leave this
