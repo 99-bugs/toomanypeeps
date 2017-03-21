@@ -18,7 +18,7 @@ namespace TooManyPeeps {
     cv::findContours(processFrame, allContours, allHierarchies, cv::RETR_EXTERNAL, cv::CHAIN_APPROX_SIMPLE);
     filter(&allContours, &allHierarchies);
 
-    std::cout << "Found contours: " << allContours.size() << " ";
+    std::cout << "Found contours: " << allContours.size() << std::endl;
   }
 
   void ContourFinder::filter(std::vector<std::vector<cv::Point>> * allContours,

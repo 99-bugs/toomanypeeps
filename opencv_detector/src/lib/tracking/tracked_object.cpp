@@ -14,6 +14,10 @@ namespace TooManyPeeps {
     return positions.back();
   }
 
+  cv::Point2f TrackedObject::get_start_location(void) {
+    return positions.front();
+  }
+
   void TrackedObject::add_current_location(cv::Point2f location) {
     positions.push_back(location);
     reset_time_to_live();

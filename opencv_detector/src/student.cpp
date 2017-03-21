@@ -41,7 +41,8 @@ void init(FrameGrabber * frameGrabber) {
   FindContours * finder = new FindContours(postProcess, originalImage, 5000, 11000);
   filters.add(finder);
 
-  TrackObjects * tracker = new TrackObjects(postProcess, originalImage, finder);
+  // Zeg tegen de tracker dat het zijn bevindingen moet bezorgen aan onze update functie
+  TrackObjects * tracker = new TrackObjects(postProcess, originalImage, finder, update);
   filters.add(tracker);
 
   filters.add(new Display(originalImage, "Contours & Tracker"));
@@ -58,6 +59,8 @@ void update(int numberOfPeopleInside) {
   ss << "{\"value\": " << numberOfPeopleInside << "}";
   string json = ss.str();
 
-  mqttPublisher.publish(json, "toomanypeeps/nico/counter");
+  cout << "MQTT: " << json << endl;
+
+  // mqttPublisher.publish(json, "toomanypeeps/nico/counter");
     // retain ??
 }

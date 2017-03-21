@@ -20,6 +20,7 @@ namespace TooManyPeeps {
       void add_current_location(cv::Point2f location);
       void set_id(int id);
       int get_id(void);
+      cv::Point2f get_start_location(void);
 
     public:
       void decrement_time_to_live(void);

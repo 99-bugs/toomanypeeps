@@ -23,3 +23,7 @@
 using namespace std;
 using namespace TooManyPeeps;
 using namespace TooManyPeeps::Mqtt;
+
+void init(FrameGrabber * frameGrabber);
+void loop(void);
+void update(int numberOfPeopleInside);

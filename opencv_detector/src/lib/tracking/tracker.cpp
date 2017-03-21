@@ -13,6 +13,11 @@ namespace TooManyPeeps {
 
     this->topReference = 50;    // pixels from top
     this->bottomReference = 130; // pixels from bottom
+
+    currentlyInsideCounter = 0;
+    updateCallback = false;
+
+    counterCallback = nullptr;
   }
 
   Tracker::~Tracker(void) {
@@ -33,9 +38,36 @@ namespace TooManyPeeps {
     for (size_t i = 0; i < trackedObjects.size(); i++) {
       trackedObjects[i].decrement_time_to_live();
       if (!trackedObjects[i].is_alive()) {
+        Direction direction = determine_direction_of_tracked_object(trackedObjects[i]);
+
+        if (direction == GOING_IN) {
+          increment_in();
+        } else if (direction == GOING_OUT) {
+          increment_out();
+        }
+
         trackedObjects.erase(trackedObjects.begin()+i);
       }
     }
+
+    // Do it once per frame
+    if (updateCallback) {
+      send_current_counter();
+    }
+  }
+
+  Direction Tracker::determine_direction_of_tracked_object(TrackedObject & object) {
+    Direction direction = UNKNOWN;
+
+    if (object.get_start_location().y <= topReference
+      && object.get_last_known_location().y >= bottomReference) {
+        direction = GOING_OUT;
+    } else if (object.get_start_location().y >= bottomReference
+      && object.get_last_known_location().y <= topReference) {
+        direction = GOING_IN;
+    }
+
+    return direction;
   }
 
   void Tracker::track(cv::Point2f referencePoint) {
@@ -99,5 +131,26 @@ namespace TooManyPeeps {
     int thickness = 3;
     cv::line(image, cv::Point(0, topReference), cv::Point(image.cols, topReference), color, thickness);
     cv::line(image, cv::Point(0, bottomReference), cv::Point(image.cols, bottomReference), color, thickness);
+  }
+
+  void Tracker::increment_in(void) {
+    currentlyInsideCounter++;
+    updateCallback = true;
+  }
+
+  void Tracker::increment_out(void) {
+    currentlyInsideCounter--;
+    updateCallback = true;
+  }
+
+  void Tracker::register_counter_callback(CounterCallback callback) {
+    this->counterCallback = callback;
+  }
+
+  void Tracker::send_current_counter(void) {
+    if (counterCallback != nullptr) {
+      counterCallback(currentlyInsideCounter);
+    }
+    updateCallback = false;
   }
 };

@@ -13,10 +13,11 @@ namespace TooManyPeeps {
       Tracker tracker;
 
     public:
-      TrackObjects(const cv::Mat& original, cv::Mat& result, FindContours * contoursFilter);
+      TrackObjects(const cv::Mat& original, cv::Mat& result, FindContours * contoursFilter, CounterCallback callback);
 
     public:
       virtual void execute(void);
+
   };
 
 };
