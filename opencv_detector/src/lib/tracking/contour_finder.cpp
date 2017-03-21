@@ -1,5 +1,5 @@
 #include "contour_finder.h"
-#include "compare_contour_area.h"
+#include "comparators/compare_contour_area.h"
 
 namespace TooManyPeeps {
 

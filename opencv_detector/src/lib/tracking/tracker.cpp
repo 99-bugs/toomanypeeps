@@ -2,8 +2,7 @@
 
 #include <vector>
 #include "contour_finder.h"
-#include "compare_object_distance.h"
-#include "compare_contour_area.h"
+#include "comparators/compare_object_distance.h"
 
 namespace TooManyPeeps {
 
