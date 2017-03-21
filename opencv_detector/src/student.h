@@ -15,6 +15,7 @@
 #include "lib/frame_grabber/pi_camera.h"
 #include "lib/frame_grabber/video_file.h"
 #include "lib/tracking/tracker.h"
+#include "lib/filter/find_contours.h"
 #include <iostream>
 #include <sstream>
 

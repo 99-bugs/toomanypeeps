@@ -11,7 +11,7 @@ cv::Mat mog2Processed;
 cv::Mat postProcess;
 
 // De tracker laat toe mensen te volgen die binnen of buiten gaan
-Tracker tracker;
+// Tracker tracker;
 
 // Hier maken we een MQTT publisher aan
 SimpleMqttPublisher	mqttPublisher("tcp://broker.mqttdashboard.com", "vives_demo");
@@ -36,6 +36,15 @@ void init(FrameGrabber * frameGrabber) {
   filters.add(new BinaryThreshold(postProcess, postProcess, 50));
   filters.add(new Erode(postProcess, postProcess, 2));
   // filters.add(new Display(postProcess, "Post-Processed"));
+
+  // would be nice if we could do this:
+  FindContours * finder = new FindContours(postProcess, originalImage, 5000, 15000);
+  filters.add(finder);
+
+  filters.add(new Display(originalImage, "Contours"));
+
+  // Tracker tracker(postProcess, originalImage, &finder);
+  // filters.add(&tracker);
 }
 
 // De loop methode wordt per beeld 1x uitgevoerd
@@ -44,9 +53,9 @@ void loop(void) {
 
   filters.execute();
 
-  tracker.find_contours(postProcess);
-  tracker.draw(originalImage);
-  cv::imshow("Contours", originalImage);
+  // tracker.find_contours(postProcess);
+  // tracker.draw(originalImage);
+  // cv::imshow("Contours", originalImage);
 }
 
 // update wordt uitgevoerd wanneer een nieuw telresultaat wordt bekomen
