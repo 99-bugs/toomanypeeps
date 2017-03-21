@@ -13,6 +13,9 @@ namespace TooManyPeeps {
       std::vector<TrackedObject> trackedObjects;
       int currentLabelId;
 
+      int topReference;
+      int bottomReference;
+
     public:
       Tracker(int maxDeltaDistance=24);
       ~Tracker(void);
@@ -28,6 +31,9 @@ namespace TooManyPeeps {
       size_t get_index_of_closest_object(cv::Point2f referencePoint);
       void process_reference_point(cv::Point2f referencePoint, TrackedObject & closestObject);
       void add_new_tracked_object(cv::Point2f referencePoint);
+
+    private:
+      void draw_references(cv::Mat & image);
   };
 
 };

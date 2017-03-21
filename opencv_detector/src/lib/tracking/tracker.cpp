@@ -10,6 +10,9 @@ namespace TooManyPeeps {
     trackedObjects.clear();
     currentLabelId = 0;
     this->maxDeltaDistance = maxDeltaDistance;
+
+    this->topReference = 50;    // pixels from top
+    this->bottomReference = 130; // pixels from bottom
   }
 
   Tracker::~Tracker(void) {
@@ -88,5 +91,13 @@ namespace TooManyPeeps {
         trackedObjects[i].draw_history(image);
       }
     }
+    draw_references(image);
+  }
+
+  void Tracker::draw_references(cv::Mat & image) {
+    cv::Scalar color(0, 255, 0);
+    int thickness = 3;
+    cv::line(image, cv::Point(0, topReference), cv::Point(image.cols, topReference), color, thickness);
+    cv::line(image, cv::Point(0, bottomReference), cv::Point(image.cols, bottomReference), color, thickness);
   }
 };
