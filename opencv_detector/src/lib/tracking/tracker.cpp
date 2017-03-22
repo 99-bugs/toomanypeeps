@@ -40,10 +40,14 @@ namespace TooManyPeeps {
       trackedObjects[i].decrement_time_to_live();
 
       Direction direction = determine_direction_of_tracked_object(trackedObjects[i]);
-      if (direction == GOING_IN) {
-        increment_in();
-      } else if (direction == GOING_OUT) {
-        increment_out();
+      if (!trackedObjects[i].is_reported()) {
+        if (direction == GOING_IN) {
+          increment_in();
+          trackedObjects[i].indicate_as_reported();
+        } else if (direction == GOING_OUT) {
+          increment_out();
+          trackedObjects[i].indicate_as_reported();
+        }
       }
 
       if (!trackedObjects[i].is_alive()) {

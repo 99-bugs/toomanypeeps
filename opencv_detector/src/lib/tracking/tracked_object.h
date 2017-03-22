@@ -11,6 +11,7 @@ namespace TooManyPeeps {
       std::vector<cv::Point2f> positions;
       int timeToLive;
       int id;
+      bool hasBeenReported;
 
     public:
       TrackedObject(cv::Point2f currentLocation);
@@ -25,6 +26,8 @@ namespace TooManyPeeps {
     public:
       void decrement_time_to_live(void);
       bool is_alive(void);
+      void indicate_as_reported(void);
+      bool is_reported(void);
 
     private:
       void reset_time_to_live(void);

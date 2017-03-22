@@ -9,6 +9,7 @@ namespace TooManyPeeps {
     add_current_location(currentLocation);
     reset_time_to_live();
     id = -1;
+    hasBeenReported = false;
   }
 
   cv::Point2f TrackedObject::get_last_known_location(void) {
@@ -67,5 +68,13 @@ namespace TooManyPeeps {
       }
       cv::line(image, positions[i], positions[i+1], ColorGenerator::yellow(), thickness);
     }
+  }
+
+  void TrackedObject::indicate_as_reported(void) {
+    hasBeenReported = true;
+  }
+
+  bool TrackedObject::is_reported(void) {
+    return hasBeenReported;
   }
 };
