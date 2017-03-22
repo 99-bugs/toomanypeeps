@@ -7,6 +7,10 @@ namespace TooManyPeeps {
     this->threshold = threshold;
   }
 
+  BinaryThreshold::BinaryThreshold(cv::Mat& image, int threshold)
+    : BinaryThreshold(original, result, threshold) {
+  }
+
   void BinaryThreshold::execute(void) {
     cv::threshold(get_original(), get_result(), threshold, MAX_OUTPUT_VALUE, cv::THRESH_BINARY);
   }

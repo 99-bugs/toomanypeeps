@@ -13,7 +13,8 @@ namespace TooManyPeeps {
       cv::Ptr<cv::BackgroundSubtractor> backgroundExtractor;
 
     public:
-      BackgroundExtractor(const cv::Mat& original, cv::Mat& result, int historySize, double threshold);
+      BackgroundExtractor(const cv::Mat& original, cv::Mat& result, int historySize=100, double threshold=16);
+      BackgroundExtractor(cv::Mat& image, int historySize=100, double threshold=16);
       ~BackgroundExtractor(void);
 
     public:

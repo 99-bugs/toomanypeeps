@@ -10,6 +10,10 @@ namespace TooManyPeeps {
     // If TRACK_SHADOWS = true, shadows are also marked in result with value = 127
   }
 
+  BackgroundExtractor::BackgroundExtractor(cv::Mat& image, int historySize, double threshold)
+    : BackgroundExtractor(image, image, historySize, threshold) {
+  }
+
   BackgroundExtractor::~BackgroundExtractor(void) {
     delete backgroundExtractor;
   }

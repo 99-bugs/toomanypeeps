@@ -13,7 +13,8 @@ namespace TooManyPeeps {
       int threshold;
 
     public:
-      BinaryThreshold(const cv::Mat& original, cv::Mat& result, int threshold);
+      BinaryThreshold(const cv::Mat& original, cv::Mat& result, int threshold=200);
+      BinaryThreshold(cv::Mat& image, int threshold=200);
 
     public:
       virtual void execute(void);
