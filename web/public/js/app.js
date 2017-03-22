@@ -16670,10 +16670,43 @@ Paho.MQTT = (function (global) {
 	};
 })(window);
 
+var mqtt;
+var sensor_id;
+
+console.log("sdfkjmqsdkfjmqsdf");
+
+$( document ).ready(function() {
+
+  sensor_id = $('meta[name=sensor-id]').attr("content");
+
+  console.log("Sensor id: " + sensor_id);
+
+  mqtt = new Paho.MQTT.Client("mqtt.99bugs.be",1884, "randomstringwithoutspaces");
+  mqtt.onMessageArrived = onMessageArrived;
+  mqtt.connect({
+      onSuccess: onConnect
+  });
+
+});
+
+function onMessageArrived(message) {
+  console.log("Message arrived: topic=" + message.destinationName + ", message=" + message.payloadString);
+  var count = Number(message.payloadString);
+  update(count);
+}
+
+function onConnect() {
+  console.log("MQTT connected");
+  console.log("toomanypeeps/"+sensor_id+"/counter");
+  mqtt.subscribe("toomanypeeps/"+sensor_id+"/counter");
+}
+
+/************************************************************/
+
 $( document ).ready(function() {
   $(document).foundation();
 
-  window.myCounter = new flipCounter('myCounter');
+  window.myCounter = new flipCounter('counter');
 
 });
 
@@ -17053,32 +17086,3 @@ var flipCounter = function(d, options){
   // Start it up
   _doCount(true);
 };
-
-// Parameters
-var hostname = "mqtt.99bugs.be";
-var port = 1884;
-var sensor_id = "demo";
-
-// Create a client instance
-var client = new Paho.MQTT.Client(hostname, Number(port), sensor_id + "-client");
-
-// set callback handlers
-client.onMessageArrived = onMessageArrived;
-
-// connect the client
-client.connect({
-    onSuccess: onConnect
-});
-
-// called when the client connects
-function onConnect() {
-    // Once a connection has been made, make a subscription and send a message.
-    console.log("onConnect");
-    client.subscribe("toomanypeeps/"+sensor_id+"/counter");
-}
-
-// called when a message arrives
-function onMessageArrived(message) {
-    console.log("Message arrived: topic=" + message.destinationName + ", message=" + message.payloadString);
-    update(Number(message.payloadString));
-}
