@@ -173,7 +173,7 @@
       update: function(){
         console.log("update !!!!!");
         console.log(this.value);
-        this._calcValues(this.value);
+        this._calcValues(this.value, this.prev_value);
         this.prev_value = this.value
       },
 
@@ -185,16 +185,16 @@
               .removeClass('hide')
               .addClass('n')
               .find('span:not(.shadow)').each(function (i, el) {
-              $(el).text(value);
-          });
+                  $(el).text(value);
+              });
           $('.counter .from:not(.n)')
               .addClass('hide')
               .addClass('to')
               .removeClass('from')
               .removeClass('hide')
-          .find('span:not(.shadow)').each(function (i, el) {
-              $(el).text(prev_value);
-          });
+              .find('span:not(.shadow)').each(function (i, el) {
+                  $(el).text(prev_value);
+              });
           $('.counter .n').removeClass('n');
       }
 
