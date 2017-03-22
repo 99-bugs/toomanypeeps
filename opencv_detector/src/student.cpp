@@ -8,38 +8,47 @@ cv::Mat original;
 cv::Mat processed;
 
 // Hier maken we een MQTT publisher aan
-// SimpleMqttPublisher	mqttPublisher("tcp://broker.mqttdashboard.com", "vives_demo");
+SimpleMqttPublisher	mqttPublisher("tcp://mqtt.labict.be", "ytty546365fdyr654354fdg");
 
 // De init methode wordt enkel bij het opstarten uitgevoerd
 void init(FrameGrabber * frameGrabber) {
+  // Frame ophalen
   filters.add(new FrameGrab(original, frameGrabber));
-  filters.add(new GaussianBlur(original, processed));
-  filters.add(new BackgroundExtractor(processed));
 
-  // Kunnen we hier eigenlijk niet beter een redelijke erode doen en pas dan dilate?
-  // Dit zou twee licht aan elkaar hangende blobs kunnen van elkaar halen
+  // Ruis wegwerken maar de overgangen behouden
+  filters.add(new GaussianBlur(original, processed));
+
+  // De voorgrond uithalen
+  filters.add(new BackgroundExtractor(processed));
 
   // Weghalen van de schaduwen die door de BackgroundExtractor worden toegevoegd
   filters.add(new BinaryThreshold(processed, 200)); // Remove shadows
+
+  // Gaten opvullen
   filters.add(new Blur(processed));
   filters.add(new Dilate(processed));
   filters.add(new Erode(processed));
-  filters.add(new Dilate(processed));
 
-  // Dit gaat volgens mij kleine gaten opvullen samen met de opvolgende THreshold
+  // Beetje uitvergroten van onze blobs en omringende stukjes meenemen
+  filters.add(new Dilate(processed));
   filters.add(new GaussianBlur(processed));
 
-  // Leave this
+  // Terug overgaan naar een puur zwart-wit beeld
   filters.add(new BinaryThreshold(processed, 50));
+
+  // Wat kleiner maken van de blobs
   filters.add(new Erode(processed));
 
+  // Zoeken van de contouren
   FindContours * finder = new FindContours(processed, original);
   filters.add(finder);
 
+  // Volgen van de objecten
   // Zeg tegen de tracker dat het zijn bevindingen moet bezorgen aan onze update functie
   TrackObjects * tracker = new TrackObjects(processed, original, finder, update);
   filters.add(tracker);
 
+  // Eindresultaat teruggeven
   filters.add(new Display(original, "Contours & Tracker"));
 }
 
@@ -56,6 +65,5 @@ void update(int numberOfPeopleInside) {
 
   cout << "MQTT: " << json << endl;
 
-  // mqttPublisher.publish(json, "toomanypeeps/nico/counter");
-    // retain ??
+  mqttPublisher.publish(json, "toomanypeeps/demo/counter");
 }

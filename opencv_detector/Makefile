@@ -26,7 +26,7 @@ endif
 
 ## Compile and use video file: make USE_FILE=1
 ## Then run program as ./bin/peeps <path_to_file>
-USE_FILE=0
+USE_FILE=1
 ifneq ($(USE_FILE),0)
 	CFLAGS += -DUSE_VIDEO_FILE=1
 endif

@@ -17,6 +17,9 @@ void loop(void);
 
 int main(int argc, const char * argv[])
 {
+  bool paused = false;
+  bool step = false;
+
 #if defined(USE_RASPBERRY_PI)
   PiCamera frame_grabber;
   frame_grabber.set_width(320);
@@ -27,8 +30,9 @@ int main(int argc, const char * argv[])
     filename = std::string(argv[1]);
   }
   VideoFile frame_grabber(filename);
+  paused = true;
 #elif defined(USE_IP_CAMERA)
-  std::string streamAddress = "http://toomanypeeps:demo@10.182.33.103/mjpeg.cgi?user=toomanypeeps&password=demo&channel=0&.mjpg";
+  std::string streamAddress = "http://toomanypeeps:demo@10.182.34.103/mjpeg.cgi?user=toomanypeeps&password=demo&channel=0&.mjpg";
   if (argc >= 2) {
     streamAddress = std::string(argv[1]);
   }
@@ -36,9 +40,6 @@ int main(int argc, const char * argv[])
 #else
   WebCamera frame_grabber;
 #endif
-
-  bool paused = false;
-  bool step = false;
 
   init(&frame_grabber);
 

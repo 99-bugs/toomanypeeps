@@ -8,6 +8,7 @@ namespace TooManyPeeps {
 
     private:
       std::string windowTitle;
+      double magnification;
 
     public:
       Display(const cv::Mat& original, std::string windowTitle);

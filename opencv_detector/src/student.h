@@ -17,6 +17,8 @@
 #include "lib/tracking/tracker.h"
 #include "lib/filter/find_contours.h"
 #include "lib/filter/track_objects.h"
+#include "lib/filter/opening.h"
+#include "lib/filter/closing.h"
 #include <iostream>
 #include <sstream>
 
