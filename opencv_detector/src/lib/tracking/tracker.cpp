@@ -7,13 +7,16 @@
 
 namespace TooManyPeeps {
 
-  Tracker::Tracker(int maxDeltaDistance) {
+  Tracker::Tracker(int maxDeltaDistance, int frameWidth, int frameHeight) {
     trackedObjects.clear();
     currentLabelId = 0;
     this->maxDeltaDistance = maxDeltaDistance;
 
-    this->topReference = 50;    // pixels from top
-    this->bottomReference = 130; // pixels from bottom
+    this->frameWidth = frameWidth;
+    this->frameHeight = frameHeight;
+
+    this->topReference = frameHeight/3;                   // pixels from top
+    this->bottomReference = frameHeight - frameHeight/3;  // pixels from bottom
 
     currentlyInsideCounter = 0;
     updateCallback = false;

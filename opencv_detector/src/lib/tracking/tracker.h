@@ -24,8 +24,11 @@ namespace TooManyPeeps {
 
       CounterCallback counterCallback;
 
+      int frameWidth;
+      int frameHeight;
+
     public:
-      Tracker(int maxDeltaDistance=24);
+      Tracker(int maxDeltaDistance=24, int frameWidth=320, int frameHeight=180);
       ~Tracker(void);
 
     public:
