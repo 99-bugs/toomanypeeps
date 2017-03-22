@@ -21,7 +21,7 @@ namespace TooManyPeeps {
 
     public:
       void find(const cv::Mat& frame);
-      void draw(cv::Mat& frame);
+      void draw(cv::Mat& frame, bool drawBoundingRectangles=false);
 
     public:
       std::vector<cv::Point2f> get_object_reference_points(void);

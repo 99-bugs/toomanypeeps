@@ -1,6 +1,7 @@
 #include "tracked_object.h"
 
 #include <sstream>
+#include "../helpers/color_generator.h"
 
 namespace TooManyPeeps {
 
@@ -58,14 +59,13 @@ namespace TooManyPeeps {
   }
 
   void TrackedObject::draw_history(cv::Mat & image) {
-    cv::Scalar color( rand()&255, rand()&255, rand()&255 );
     int thickness = 2;
 
     for (size_t i = 0; i < positions.size()-1; i++) {
       if (i+1 == positions.size()-1) {
         thickness = 4;
       }
-      cv::line(image, positions[i], positions[i+1], color, thickness);
+      cv::line(image, positions[i], positions[i+1], ColorGenerator::yellow(), thickness);
     }
   }
 };

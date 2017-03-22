@@ -1,5 +1,6 @@
 #include "contour_finder.h"
 #include "comparators/compare_contour_area.h"
+#include "../helpers/color_generator.h"
 
 namespace TooManyPeeps {
 
@@ -61,6 +62,8 @@ namespace TooManyPeeps {
   }
 
   void ContourFinder::use_bounding_rectangle_centers_as_reference(void) {
+    // This is not correct yet. Still contains a bug
+    throw "ContourFinder::use_bounding_rectangle_centers_as_reference contains a bug";
     objectReferencePoints.clear();
     for (size_t i = 0; i < boundingRectangles.size(); i++) {
       objectReferencePoints.push_back(cv::Point2f((boundingRectangles[i].x + boundingRectangles[i].width)/2,
@@ -83,22 +86,21 @@ namespace TooManyPeeps {
       }
   }
 
-  void ContourFinder::draw(cv::Mat& frame) {
-    for(size_t i = 0; i < contours.size(); i++)
-    {
-        cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-        cv::drawContours(frame, contours, i, color, cv::FILLED, 8, hierarchy);
+  void ContourFinder::draw(cv::Mat& frame, bool drawBoundingRectangles) {
+    for(size_t i = 0; i < contours.size(); i++) {
+      int thickness = 2;
+      cv::drawContours(frame, contours, i, ColorGenerator::magenta(), thickness, 8, hierarchy);
     }
 
-    for (size_t i = 0; i < boundingRectangles.size(); i++) {
-      cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-      int thickness = 3;
-      cv::rectangle(frame, boundingRectangles[i], color, thickness);
+    if (drawBoundingRectangles) {
+      for (size_t i = 0; i < boundingRectangles.size(); i++) {
+        int thickness = 3;
+        cv::rectangle(frame, boundingRectangles[i], ColorGenerator::magenta(), thickness);
+      }
     }
 
     for (size_t i = 0; i < contours.size(); i++) {
-      cv::Scalar color( rand()&255, rand()&255, rand()&255 );
-      cv::circle(frame, objectReferencePoints[i], 4, color, -1);
+      cv::circle(frame, objectReferencePoints[i], 4, ColorGenerator::magenta(), -1);
     }
   }
 

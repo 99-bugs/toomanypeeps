@@ -3,6 +3,7 @@
 #include <vector>
 #include "contour_finder.h"
 #include "comparators/compare_object_distance.h"
+#include "../helpers/color_generator.h"
 
 namespace TooManyPeeps {
 
@@ -37,15 +38,15 @@ namespace TooManyPeeps {
   void Tracker::update_tracked_objects(void) {
     for (size_t i = 0; i < trackedObjects.size(); i++) {
       trackedObjects[i].decrement_time_to_live();
+
+      Direction direction = determine_direction_of_tracked_object(trackedObjects[i]);
+      if (direction == GOING_IN) {
+        increment_in();
+      } else if (direction == GOING_OUT) {
+        increment_out();
+      }
+
       if (!trackedObjects[i].is_alive()) {
-        Direction direction = determine_direction_of_tracked_object(trackedObjects[i]);
-
-        if (direction == GOING_IN) {
-          increment_in();
-        } else if (direction == GOING_OUT) {
-          increment_out();
-        }
-
         trackedObjects.erase(trackedObjects.begin()+i);
       }
     }
@@ -127,10 +128,9 @@ namespace TooManyPeeps {
   }
 
   void Tracker::draw_references(cv::Mat & image) {
-    cv::Scalar color(0, 255, 0);
     int thickness = 3;
-    cv::line(image, cv::Point(0, topReference), cv::Point(image.cols, topReference), color, thickness);
-    cv::line(image, cv::Point(0, bottomReference), cv::Point(image.cols, bottomReference), color, thickness);
+    cv::line(image, cv::Point(0, topReference), cv::Point(image.cols, topReference), ColorGenerator::lime(), thickness);
+    cv::line(image, cv::Point(0, bottomReference), cv::Point(image.cols, bottomReference), ColorGenerator::lime(), thickness);
   }
 
   void Tracker::increment_in(void) {
