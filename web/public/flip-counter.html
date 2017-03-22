@@ -16,15 +16,16 @@
 
       @import url(http://fonts.googleapis.com/css?family=Roboto+Condensed:300|Oswald);
 
-h1 {
+.counter {
+
+  box-sizing: content-box;
+
   line-height:100px;
   font-size:28px;
   font-weight:normal;
-}
-h1 .counter {
   font-size:50px;
   width:80px;
-  height:50px;
+  height:100px;
   font-family:'Oswald', sans-serif;
   display:inline-block;
   padding:0 30px 0 10px;
@@ -32,9 +33,9 @@ h1 .counter {
   position:relative;
   top:-7px;
 }
-h1 .counter > span {
+.counter > span {
   display:block;
-  position:absolute;
+  position: absolute;
   overflow:hidden;
   padding:0 25px;
   background:-webkit-gradient(linear, 0 0, 0 100%, from(#FFF), to(#f2f2f2));
@@ -48,38 +49,38 @@ h1 .counter > span {
   backface-visibility:hidden;
   transform-style: preserve-3d;
 }
-h1 .counter > span span {
+.counter > span span {
   color:#99df1c;
 }
-h1 .counter > span.decor.top {
+.counter > span.decor.top {
   box-shadow: 0 24px 43px -3px rgba(0, 0, 0, 0.45);
 }
-h1 .counter > span.decor.bottom {
+.counter > span.decor.bottom {
   box-shadow: 0 2px 0px -1px #d8d8d8, 0 4px 0px -2px #c7c7c7, 0 6px 0px -3px #d8d8d8, 0 8px 0px -4px #c6c6c6, 0 10px 0px -5px #d6d6d6, 0 12px 0px -6px #c9c9c9, 0 14px 0px -7px #d8d8d8, 0 14px 23px -9px rgba(0, 0, 0, 0.8);
 }
-h1 .counter > span.top {
+.counter > span.top {
   box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.2);
   border-radius:3px 3px 0 0;
 }
-h1 .counter > span.top span {
+.counter > span.top span {
   position:relative;
   bottom:5px;
 }
-h1 .counter > span.bottom {
+.counter > span.bottom {
   top:46px;
   box-shadow: inset 0 -1px 3px rgba(0, 0, 0, 0.2);
   border-radius:0 0 3px 3px;
 }
-h1 .counter > span.bottom span {
+.counter > span.bottom span {
   position:relative;
   top:-51px;
 }
-h1 .counter > span.from.bottom {
+.counter > span.from.bottom {
   z-index:1;
   transform-origin: 0% 0%;
   animation: from-flip 1s;
 }
-h1 .counter > span.to.top {
+.counter > span.to.top {
   z-index:1;
   transform-origin: 100% 100%;
   animation: to-flip 1s;
@@ -135,7 +136,7 @@ h1 .counter > span.to.top {
 .counter .to.bottom .shadow { animation: fade-in 1s; }
 .hide .shadow { animation:none !important; }
 @media screen and (-webkit-min-device-pixel-ratio:0) {
-  h1 .counter > span span {
+  .counter > span span {
     color:rgba(0, 0, 0, 0);
     background: linear-gradient(#99df1c 0%, #6dbe0a 100%);
     -webkit-background-clip: text;
@@ -143,17 +144,14 @@ h1 .counter > span.to.top {
   }
 }
     </style>
-    <h2>Hello [[prop1]]</h2>
-    <h1>
-      <div class="counter">
-        <span class="decor top"></span>
-        <span class="decor bottom"></span>
-        <span class="from top"><span></span><span class="shadow"></span></span>
-        <span class="from bottom"><span></span><span class="shadow"></span></span>
-        <span class="to top"><span></span><span class="shadow"></span></span>
-        <span class="to bottom"><span></span><span class="shadow"></span></span>
-      </div>
-    </h1>
+    <div class="counter">
+      <span class="decor top"></span>
+      <span class="decor bottom"></span>
+      <span class="from top"><span></span><span class="shadow"></span></span>
+      <span class="from bottom"><span></span><span class="shadow"></span></span>
+      <span class="to top"><span></span><span class="shadow"></span></span>
+      <span class="to bottom"><span></span><span class="shadow"></span></span>
+    </div>
   </template>
 
   <script>
@@ -162,48 +160,46 @@ h1 .counter > span.to.top {
       is: 'flip-counter',
 
       properties: {
-        prop1: {
-          type: String,
-          value: 'flip-counter',
-        },
+        value: {
+          type: Number,
+          notify: true,
+          value: 0,
+          observer: 'update'
+        }
       },
 
+      prev_value: 0,
+
+      update: function(){
+        console.log("update !!!!!");
+        console.log(this.value);
+        this._calcValues(this.value);
+        this.prev_value = this.value
+      },
+
+      _calcValues: function(value, prev_value) {
+          $('.counter .to')
+              .addClass('hide')
+              .removeClass('to')
+              .addClass('from')
+              .removeClass('hide')
+              .addClass('n')
+              .find('span:not(.shadow)').each(function (i, el) {
+              $(el).text(value);
+          });
+          $('.counter .from:not(.n)')
+              .addClass('hide')
+              .addClass('to')
+              .removeClass('from')
+              .removeClass('hide')
+          .find('span:not(.shadow)').each(function (i, el) {
+              $(el).text(prev_value);
+          });
+          $('.counter .n').removeClass('n');
+      }
+
     });
 
-    calcValues();
-var int = setInterval(calcValues, 1000);
-function calcValues() {
-    $('.counter .to')
-        .addClass('hide')
-        .removeClass('to')
-        .addClass('from')
-        .removeClass('hide')
-        .addClass('n')
-        .find('span:not(.shadow)').each(function (i, el) {
-        $(el).text(getSec(true));
-    });
-    $('.counter .from:not(.n)')
-        .addClass('hide')
-        .addClass('to')
-        .removeClass('from')
-        .removeClass('hide')
-    .find('span:not(.shadow)').each(function (i, el) {
-        $(el).text(getSec(false));
-    });
-    $('.counter .n').removeClass('n');
-}
-function getSec(next) {
-    var d = new Date();
-    var sec = 60-d.getSeconds();
-    if (next) {
-        sec--;
-        if (sec < 0) {
-            sec = 59;
-        }
-    } else if(sec == 60) {
-        sec = 0;
-    }
-    return (sec < 10 ? '0' + sec : sec);
-}
+
   </script>
 </dom-module>
