@@ -10,7 +10,8 @@ namespace TooManyPeeps {
       int kernelSize;
 
     public:
-      Blur(const cv::Mat& original, cv::Mat& result, int kernelSize);
+      Blur(const cv::Mat& original, cv::Mat& result, int kernelSize=5);
+      Blur(cv::Mat& image, int kernelSize=5);
 
     public:
       virtual void execute(void);

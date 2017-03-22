@@ -1,1 +1,3 @@
 opencv_detector/build/peeps
+*.o
+opencv_detector/bin

@@ -1,40 +1,66 @@
-#include "lib/camera/web_camera.h"
-#include "lib/filter/filter_chain.h"
-#include "lib/filter/frame_grab.h"
-#include "lib/filter/gaussian_blur.h"
-#include "lib/filter/display.h"
-#include "lib/filter/background_extractor.h"
-#include "lib/filter/binary_threshold.h"
-#include "lib/filter/dilate.h"
-#include "lib/filter/erode.h"
-#include "lib/filter/blur.h"
+#include "lib/frame_grabber/web_camera.h"
+#include "lib/frame_grabber/pi_camera.h"
+#include "lib/frame_grabber/video_file.h"
+#include "lib/frame_grabber/ip_camera.h"
+#include <ctime>
 
 using namespace TooManyPeeps;
 
-int main()
+#ifdef USE_RASPBERRY_PI
+  #pragma message ("Creating Raspberry PI application")
+#else
+  #pragma message ("Creating non-Rasberry PI application")
+#endif
+
+void init(FrameGrabber * frameGrabber);
+void loop(void);
+
+int main(int argc, const char * argv[])
 {
-  WebCamera camera;
+  bool paused = false;
+  bool step = false;
 
-  cv::Mat original;
-  cv::Mat blurred;
-  cv::Mat mog2Processed;
-  cv::Mat detection;
-  cv::Mat otherBlur;
+#if defined(USE_RASPBERRY_PI)
+  PiCamera frame_grabber;
+  frame_grabber.set_width(320);
+  frame_grabber.set_height(240);
+#elif defined(USE_VIDEO_FILE)
+  std::string filename = "./video_samples/lab_demo.mp4";
+  if (argc >= 2) {
+    filename = std::string(argv[1]);
+  }
+  VideoFile frame_grabber(filename);
+  paused = true;
+#elif defined(USE_IP_CAMERA)
+  std::string streamAddress = "http://toomanypeeps:demo@10.182.34.103/mjpeg.cgi?user=toomanypeeps&password=demo&channel=0&.mjpg";
+  if (argc >= 2) {
+    streamAddress = std::string(argv[1]);
+  }
+  IPCamera frame_grabber(streamAddress);
+#else
+  WebCamera frame_grabber;
+#endif
 
-  FilterChain blobDetect;
-
-  blobDetect.add(new FrameGrab(original, &camera));
-  blobDetect.add(new Display(original, "Original"));
-  blobDetect.add(new GaussianBlur(original, blurred, 5));
-  blobDetect.add(new BackgroundExtractor(blurred, mog2Processed, 100, 16));
-  blobDetect.add(new Dilate(mog2Processed, detection, 10));
-  blobDetect.add(new Erode(detection, detection, 5));
-  blobDetect.add(new Display(detection, "Final Result"));
-  blobDetect.add(new Blur(original, otherBlur, 5));
-  blobDetect.add(new Display(otherBlur, "Other Blur Result"));
+  init(&frame_grabber);
 
   do {
-    blobDetect.execute();
+    if (!paused || step) {
+      // double time_=cv::getTickCount();
+      // double secondsElapsed= double ( cv::getTickCount()-time_ ) /double ( cv::getTickFrequency() );
+      // std::cout << "FPS = " << (1.0 /secondsElapsed ) << std::endl;
+      step = false;
+      loop();
+    }
+
+    char key = cv::waitKey(100);
+    if(key == 'p') {
+      paused = !paused;
+    } else if (key == 's') {
+      step = true;
+    } else if (key == 27) {
+      break;
+    }
+
   } while (true);
 
   return 0;

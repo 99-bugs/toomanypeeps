@@ -7,6 +7,9 @@ namespace TooManyPeeps {
   class Filter {
 
     public:
+      virtual ~Filter(void);
+
+    public:
       virtual void execute(void) = 0;
 
   };

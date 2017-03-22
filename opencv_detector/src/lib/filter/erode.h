@@ -10,7 +10,8 @@ namespace TooManyPeeps {
       cv::Mat kernel;
 
     public:
-      Erode(const cv::Mat& original, cv::Mat& result, int kernelSize);
+      Erode(const cv::Mat& original, cv::Mat& result, int kernelSize=3);
+      Erode(cv::Mat& image, int kernelSize=3);
 
     public:
       virtual void execute(void);

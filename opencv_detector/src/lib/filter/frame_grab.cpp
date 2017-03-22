@@ -2,13 +2,13 @@
 
 namespace TooManyPeeps {
 
-  FrameGrab::FrameGrab(cv::Mat& result, Camera * camera)
+  FrameGrab::FrameGrab(cv::Mat& result, FrameGrabber * frame_grabber)
     : OutputFilter(result) {
-    this->camera = camera;
+    this->frame_grabber = frame_grabber;
   }
 
   void FrameGrab::execute(void) {
-    cv::Mat frame = camera->grab_frame();
+    cv::Mat frame = frame_grabber->grab_frame();
     frame.copyTo(get_result());
   }
 
