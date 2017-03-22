@@ -16,9 +16,9 @@ var flipCounter = function(d, options){
     value: 0,
     inc: 1,
     pace: 1000,
-    auto: true,
+    auto: false,
     decimals: 0,
-    places: 0
+    places: 3
   };
 
   var counter = options || {};
@@ -210,10 +210,11 @@ var flipCounter = function(d, options){
 
   // Creates array of digits for easier manipulation
   function _toArray(input){
+    console.log(input)
     var output = input.toString().split('').reverse();
     if (counter.places > 0 && output.length < counter.places) {
       for (var i = output.length; i < counter.places; i++){
-        output.push('0');
+        output.push( input < 0 ? '' : '0');
       }
     }
     return output;
@@ -284,7 +285,7 @@ var flipCounter = function(d, options){
 
   // http://stackoverflow.com/questions/18082/validate-numbers-in-javascript-isnumeric/1830844
   function _isNumber(n){
-    return !isNaN(parseFloat(n)) && isFinite(n);
+    return !isNaN(parseFloat(n)) && isFinite(n) || n == '-';
   }
 
   function _clearNext(){
