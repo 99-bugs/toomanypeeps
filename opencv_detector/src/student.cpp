@@ -50,6 +50,8 @@ void init(FrameGrabber * frameGrabber) {
 
   // Eindresultaat teruggeven
   filters.add(new Display(original, "Contours & Tracker"));
+
+  update(0);
 }
 
 // De loop methode wordt per beeld 1x uitgevoerd

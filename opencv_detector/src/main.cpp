@@ -57,6 +57,8 @@ int main(int argc, const char * argv[])
       paused = !paused;
     } else if (key == 's') {
       step = true;
+    } else if (key == 27) {
+      break;
     }
 
   } while (true);

@@ -51,6 +51,7 @@ namespace TooManyPeeps {
         std::cout << "Sending message..." << std::flush;
         mqtt::message_ptr pubmsg = std::make_shared<mqtt::message>(message);
         pubmsg->set_qos((int)(qos));
+        pubmsg->set_retained(RETAINED);
         client->publish(topic, pubmsg);
         std::cout << "OK" << std::endl;
       }

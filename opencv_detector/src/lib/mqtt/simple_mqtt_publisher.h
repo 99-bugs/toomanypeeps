@@ -13,6 +13,8 @@ namespace TooManyPeeps {
     class SimpleMqttPublisher
     {
       private:
+        static const bool RETAINED = true;
+
         MemoryPersistenceStore store;
         mqtt::client * client;
         Callback callback;
