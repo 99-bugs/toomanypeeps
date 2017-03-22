@@ -1,6 +1,7 @@
 #include "lib/frame_grabber/web_camera.h"
 #include "lib/frame_grabber/pi_camera.h"
 #include "lib/frame_grabber/video_file.h"
+#include "lib/frame_grabber/ip_camera.h"
 #include <ctime>
 
 using namespace TooManyPeeps;
@@ -26,6 +27,12 @@ int main(int argc, const char * argv[])
     filename = std::string(argv[1]);
   }
   VideoFile frame_grabber(filename);
+#elif defined(USE_IP_CAMERA)
+  std::string streamAddress = "http://toomanypeeps:demo@10.182.33.103/mjpeg.cgi?user=toomanypeeps&password=demo&channel=0&.mjpg";
+  if (argc >= 2) {
+    streamAddress = std::string(argv[1]);
+  }
+  IPCamera frame_grabber(streamAddress);
 #else
   WebCamera frame_grabber;
 #endif
