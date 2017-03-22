@@ -8,7 +8,7 @@ namespace TooManyPeeps {
   }
 
   BinaryThreshold::BinaryThreshold(cv::Mat& image, int threshold)
-    : BinaryThreshold(original, result, threshold) {
+    : BinaryThreshold(image, image, threshold) {
   }
 
   void BinaryThreshold::execute(void) {
