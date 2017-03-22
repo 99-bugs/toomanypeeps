@@ -44,6 +44,7 @@ namespace TooManyPeeps {
 
     private:
       void draw_references(cv::Mat & image);
+      void draw_counter(cv::Mat & image);
 
     private:
       void increment_in(void);

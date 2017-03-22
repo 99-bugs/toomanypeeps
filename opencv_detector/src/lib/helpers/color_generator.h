@@ -26,6 +26,11 @@ namespace TooManyPeeps {
         cv::Scalar color(0, 255, 63);
         return color;
       }
+
+      static cv::Scalar cyan(void) {
+        cv::Scalar color(255, 255, 0);
+        return color;
+      }
   };
 
 };

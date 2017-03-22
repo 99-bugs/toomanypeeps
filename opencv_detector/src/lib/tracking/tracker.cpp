@@ -125,12 +125,21 @@ namespace TooManyPeeps {
       }
     }
     draw_references(image);
+    draw_counter(image);
   }
 
   void Tracker::draw_references(cv::Mat & image) {
     int thickness = 3;
     cv::line(image, cv::Point(0, topReference), cv::Point(image.cols, topReference), ColorGenerator::lime(), thickness);
     cv::line(image, cv::Point(0, bottomReference), cv::Point(image.cols, bottomReference), ColorGenerator::lime(), thickness);
+  }
+
+  void Tracker::draw_counter(cv::Mat & image) {
+    char buffer[200];
+    sprintf(buffer, "Number of people inside: %d", currentlyInsideCounter);
+    cv::Point2f where(20, image.rows-20);
+    double scale = 1;
+    cv::putText(image, buffer, where, cv::FONT_HERSHEY_PLAIN, scale, ColorGenerator::cyan(), 2);
   }
 
   void Tracker::increment_in(void) {
