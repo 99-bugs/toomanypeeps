@@ -31,7 +31,6 @@ module.exports = function(grunt) {
                     'bower_components/moment/moment.js',
                     'bower_components/chart.js/dist/Chart.min.js',
                     'bower_components/paho-mqtt-js/mqttws31.js',
-                    'bower_components/platform/platform.js',
                     'assets/js/*.js'
                 ],
                 dest: 'public/js/app.js'

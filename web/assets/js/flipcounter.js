@@ -210,7 +210,6 @@ var flipCounter = function(d, options){
 
   // Creates array of digits for easier manipulation
   function _toArray(input){
-    console.log(input)
     var output = input.toString().split('').reverse();
     if (counter.places > 0 && output.length < counter.places) {
       for (var i = output.length; i < counter.places; i++){

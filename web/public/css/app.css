@@ -1,4 +1,10 @@
 @charset "UTF-8";
+h1, h2, h3, h4, h5, h6 {
+  text-align: center; }
+
+.top-bar .menu {
+  color: #eee8d5; }
+
 /**
  * Foundation for Sites by ZURB
  * Version 6.3.1
@@ -942,11 +948,11 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background: #073642;
+  background: #fdf6e3;
   font-family: "Helvetica Neue", Helvetica, Roboto, Arial, sans-serif;
   font-weight: normal;
   line-height: 1.5;
-  color: #839496;
+  color: #586e75;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
@@ -1940,7 +1946,7 @@ cite {
 
 abbr {
   border-bottom: 1px dotted #002b36;
-  color: #839496;
+  color: #586e75;
   cursor: help; }
 
 figure {
@@ -2234,7 +2240,7 @@ legend {
     margin: 0;
     margin-left: -0.1875rem;
     padding: 0 0.1875rem;
-    background: #073642; }
+    background: #fdf6e3; }
 
 select {
   height: 2.4375rem;
@@ -2498,7 +2504,7 @@ select {
   border: 1px solid #073642;
   border-bottom: 0;
   background-color: #fdf6e3;
-  color: #839496; }
+  color: #586e75; }
   :last-child > .accordion-content:last-child {
     border-bottom: 1px solid #073642; }
 
@@ -2689,26 +2695,26 @@ select {
   border: 1px solid rgba(0, 43, 54, 0.25);
   border-radius: 0;
   background-color: #fffefb;
-  color: #073642; }
+  color: #586e75; }
   .callout > :first-child {
     margin-top: 0; }
   .callout > :last-child {
     margin-bottom: 0; }
   .callout.primary {
     background-color: #d7ecfa;
-    color: #073642; }
+    color: #586e75; }
   .callout.secondary {
     background-color: #eaeaea;
-    color: #073642; }
+    color: #586e75; }
   .callout.success {
     background-color: #e1faea;
-    color: #073642; }
+    color: #586e75; }
   .callout.warning {
     background-color: #fff3d9;
-    color: #073642; }
+    color: #586e75; }
   .callout.alert {
     background-color: #f7e4e1;
-    color: #073642; }
+    color: #586e75; }
   .callout.small {
     padding-top: 0.5rem;
     padding-right: 0.5rem;
@@ -2727,7 +2733,7 @@ select {
   background: #fdf6e3;
   box-shadow: none;
   overflow: hidden;
-  color: #839496; }
+  color: #586e75; }
   .card > :last-child {
     margin-bottom: 0; }
 
@@ -2988,7 +2994,7 @@ select {
   visibility: hidden;
   border: 1px solid #586e75;
   border-radius: 0;
-  background-color: #073642;
+  background-color: #fdf6e3;
   font-size: 1rem; }
   .dropdown-pane.is-open {
     visibility: visible; }
@@ -3263,7 +3269,7 @@ select {
   display: inline-block;
   padding: 0.33333rem 0.5rem;
   border-radius: 0;
-  font-size: 0.8rem;
+  font-size: header-size(medium, h1);
   line-height: 1;
   white-space: nowrap;
   cursor: default;
@@ -3956,10 +3962,10 @@ table {
     font-weight: bold; }
   thead {
     background: #fcf2d8;
-    color: #839496; }
+    color: #586e75; }
   tfoot {
     background: #fbefcd;
-    color: #839496; }
+    color: #586e75; }
   thead tr, tfoot tr {
     background: transparent; }
   thead th, thead td, tfoot th, tfoot td {
@@ -4059,7 +4065,7 @@ table.hover:not(.unstriped) tr:nth-of-type(even):hover {
   border: 1px solid #073642;
   border-top: 0;
   background: #fdf6e3;
-  color: #839496;
+  color: #586e75;
   transition: all 0.5s ease; }
 
 .tabs-content.vertical {

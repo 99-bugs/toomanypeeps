@@ -1,16 +1,19 @@
 
 var config = {
     type: 'line',
+    legend: {
+        display: false
+    },
     data: {
       labels: [],
       datasets: [
         {
-          label: "Temperature",
+          label: "# of people",
           type: 'line',
           data: [],
-          fill: false,
-          backgroundColor: "rgba(255, 99, 132, 0.8)",
-          borderColor: "rgba(255, 99, 132, 0.8)",
+          fill: true,
+          backgroundColor: "#268bd2",
+          borderColor: "#268bd2",
           yAxisID: "y-axis-total",
           lineTension: 0,
           pointRadius: 0,
@@ -43,7 +46,10 @@ var config = {
           {
             position: "right",
             id: "y-axis-total",
-            scaleType: "linear"
+            scaleType: "linear",
+            ticks: {
+              beginAtZero: true
+            }
           }
         ]
       }
