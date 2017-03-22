@@ -8,6 +8,10 @@ namespace TooManyPeeps {
     this->kernelSize = kernelSize;
   }
 
+  Blur::Blur(cv::Mat& image, int kernelSize)
+    : Blur(image, image, kernelSize) {
+  }
+
   void Blur::execute(void) {
     cv::blur(get_original(), get_result(), cv::Size(kernelSize, kernelSize));
   }

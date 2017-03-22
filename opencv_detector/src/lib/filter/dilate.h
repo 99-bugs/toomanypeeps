@@ -10,7 +10,8 @@ namespace TooManyPeeps {
       cv::Mat kernel;
 
     public:
-      Dilate(const cv::Mat& original, cv::Mat& result, int kernelSize);
+      Dilate(const cv::Mat& original, cv::Mat& result, int kernelSize=5);
+      Dilate(cv::Mat& image, int kernelSize=5);
 
     public:
       virtual void execute(void);

@@ -10,7 +10,8 @@ namespace TooManyPeeps {
       int blurFactor;
 
     public:
-      GaussianBlur(const cv::Mat& original, cv::Mat& result, double blurFactor, int kernelSize=5);
+      GaussianBlur(const cv::Mat& original, cv::Mat& result, double blurFactor=5, int kernelSize=5);
+      GaussianBlur(cv::Mat& image, double blurFactor=5, int kernelSize=5);
 
     public:
       virtual void execute(void);
