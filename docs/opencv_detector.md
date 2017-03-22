@@ -11,11 +11,26 @@
 * [Install Mqtt](mqtt.md)
 * [Install RaspiCam](raspi_cam.md)
 
+## Cloning the project
+
+```shell
+cd
+git clone https://github.com/99-bugs/toomanypeeps.git
+```
+
+To start your own code project checkout the start branch
+
+```shell
+cd toomanypeeps
+git checkout start
+```
+
 ## Compiling the OpenCV C++ app
 
 Just execute a `make USE_PI=1` inside the *opencv_detector* directory:
 
 ```shell
+cd toomanypeeps
 cd opencv_detector
 make USE_PI=1
 ```
@@ -31,9 +46,8 @@ make
 
 ## Running the OpenCV C++ app
 
-Traverse to the *opencv_detector/bin* dir and run the `peeps` binary.
+To run the application stay in the `opencv_detector` directory and run
 
 ```shell
-cd opencv_detector/bin
-./peeps
+./bin/peeps
 ```

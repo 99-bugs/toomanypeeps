@@ -13,7 +13,7 @@ Next clone, compile and install paho C client library of MQTT
 
 ```shell
 cd
-git clone https://github.com/eclipse/paho.mqtt.c
+git clone https://github.com/eclipse/paho.mqtt.c.git
 cd paho.mqtt.c
 make
 sudo make install
@@ -32,7 +32,7 @@ Next we need to compile and install the C++ wrapper library for the MQTT librari
 
 ```shell
 cd
-git clone https://github.com/eclipse/paho.mqtt.cpp
+git clone https://github.com/eclipse/paho.mqtt.cpp.git
 cd paho.mqtt.cpp
 make
 ```
