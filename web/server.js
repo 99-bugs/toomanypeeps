@@ -4,6 +4,7 @@ var exphbs  = require('express-handlebars')
 
 // Serve static files
 app.use(express.static('public'))
+app.use('/polymer', express.static('./bower_components/polymer'))
 
 // Use handlebars teplating engine
 app.engine('handlebars', exphbs({defaultLayout: 'main'}))
