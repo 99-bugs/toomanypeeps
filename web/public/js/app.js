@@ -16673,8 +16673,6 @@ Paho.MQTT = (function (global) {
 var mqtt;
 var sensor_id;
 
-console.log("sdfkjmqsdkfjmqsdf");
-
 $( document ).ready(function() {
 
   sensor_id = $('meta[name=sensor-id]').attr("content");
@@ -16691,7 +16689,8 @@ $( document ).ready(function() {
 
 function onMessageArrived(message) {
   console.log("Message arrived: topic=" + message.destinationName + ", message=" + message.payloadString);
-  var count = Number(message.payloadString);
+  var json = JSON.parse(message.payloadString);
+  var count = json.value;
   update(count);
 }
 
