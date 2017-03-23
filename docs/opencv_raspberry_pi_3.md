@@ -25,7 +25,7 @@ sudo apt-get install build-essential git cmake pkg-config -y
 Install all sorts of packages that are used by openCV
 
 ```shell
-sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev libatlas-base-dev gfortran install libgtkglext1 libgtkglext1-dev -y
+sudo apt-get install libjpeg-dev libtiff5-dev libjasper-dev libpng12-dev libavcodec-dev libavformat-dev libswscale-dev libv4l-dev libxvidcore-dev libx264-dev libgtk2.0-dev libatlas-base-dev gfortran libgtkglext1 libgtkglext1-dev -y
 ```
 
 Checkout opencv git repo
