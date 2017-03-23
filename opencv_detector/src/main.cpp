@@ -43,7 +43,7 @@ int main(int argc, const char * argv[])
 #endif
 
   init(&frame_grabber);
-  cout << "Watch it. Video is currently paused. Press p to pause/unpause, s to step and esc to quit" << endl;
+  std::cout << "Watch it. Video is currently paused. Press p to pause/unpause, s to step and esc to quit" << std::endl;
   do {
     if (!paused || step) {
       // double time_=cv::getTickCount();
