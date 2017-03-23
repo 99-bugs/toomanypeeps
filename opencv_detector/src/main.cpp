@@ -31,6 +31,8 @@ int main(int argc, const char * argv[])
   }
   VideoFile frame_grabber(filename);
   paused = true;
+  std::cout << "Watch it. Video is currently paused. Press p to pause/unpause, s to step and esc to quit" << std::endl;
+  
 #elif defined(USE_IP_CAMERA)
   std::string streamAddress = "http://toomanypeeps:demo@10.182.34.103/mjpeg.cgi?user=toomanypeeps&password=demo&channel=0&.mjpg";
 
@@ -43,7 +45,6 @@ int main(int argc, const char * argv[])
 #endif
 
   init(&frame_grabber);
-  std::cout << "Watch it. Video is currently paused. Press p to pause/unpause, s to step and esc to quit" << std::endl;
   do {
     if (!paused || step) {
       // double time_=cv::getTickCount();
