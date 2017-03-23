@@ -15,8 +15,8 @@ namespace TooManyPeeps {
     this->frameWidth = frameWidth;
     this->frameHeight = frameHeight;
 
-    this->topReference = frameHeight/3;                   // pixels from top
-    this->bottomReference = frameHeight - frameHeight/3;  // pixels from bottom
+    this->topReference = frameHeight/2 - 30;     // pixels from top
+    this->bottomReference = frameHeight/2 + 30;  // pixels from bottom
 
     currentlyInsideCounter = 0;
     updateCallback = false;
