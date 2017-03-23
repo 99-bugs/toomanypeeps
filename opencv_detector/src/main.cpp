@@ -25,14 +25,14 @@ int main(int argc, const char * argv[])
   frame_grabber.set_width(320);
   frame_grabber.set_height(240);
 #elif defined(USE_VIDEO_FILE)
-  std::string filename = "./video_samples/lab_demo.mp4";
+  std::string filename = "./video_samples/sample-02.mp4";
   if (argc >= 2) {
     filename = std::string(argv[1]);
   }
   VideoFile frame_grabber(filename);
   paused = true;
   std::cout << "Watch it. Video is currently paused. Press p to pause/unpause, s to step and esc to quit" << std::endl;
-  
+
 #elif defined(USE_IP_CAMERA)
   std::string streamAddress = "http://toomanypeeps:demo@10.182.34.103/mjpeg.cgi?user=toomanypeeps&password=demo&channel=0&.mjpg";
 
