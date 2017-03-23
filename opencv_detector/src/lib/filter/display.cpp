@@ -8,7 +8,7 @@ namespace TooManyPeeps {
       this->magnification = magnification;
 
     cv::namedWindow(windowTitle, cv::WINDOW_NORMAL);
-    cv::resizeWindow(windowTitle, 320, 240);
+    cv::resizeWindow(windowTitle, 640, 480);
   }
 
   void Display::execute(void) {
