@@ -54,7 +54,7 @@ int main(int argc, const char * argv[])
       loop();
     }
 
-    char key = cv::waitKey(100);
+    char key = cv::waitKey(10);
     if(key == 'p') {
       paused = !paused;
     } else if (key == 's') {

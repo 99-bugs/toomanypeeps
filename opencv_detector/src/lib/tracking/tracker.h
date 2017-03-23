@@ -28,7 +28,7 @@ namespace TooManyPeeps {
       int frameHeight;
 
     public:
-      Tracker(int maxDeltaDistance=24, int frameWidth=320, int frameHeight=240);
+      Tracker(int maxDeltaDistance=40, int frameWidth=320, int frameHeight=240);
       ~Tracker(void);
 
     public:

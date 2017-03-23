@@ -11,7 +11,7 @@ namespace TooManyPeeps {
       ContourFinder contourFinder;
 
     public:
-      FindContours(const cv::Mat& original, cv::Mat& result, double minimumArea=5000, double maximumArea=11000);
+      FindContours(const cv::Mat& original, cv::Mat& result, double minimumArea=3000, double maximumArea=15000);
 
     public:
       virtual void execute(void);
