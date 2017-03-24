@@ -18,7 +18,7 @@ LIBS=`pkg-config --libs opencv` -lmqttpp -lpaho-mqtt3a
 ##############################################
 
 ## Compile for raspberry pi: make USE_PI=1
-USE_PI=0
+USE_PI=1
 ifeq ($(USE_PI),1)
 	CFLAGS += -DUSE_RASPBERRY_PI=1
 	LIBS += -lraspicam -lraspicam_cv
@@ -26,7 +26,7 @@ endif
 
 ## Compile and use video file: make USE_FILE=1
 ## Then run program as ./bin/peeps <path_to_file>
-USE_FILE=1
+USE_FILE=0
 ifneq ($(USE_FILE),0)
 	CFLAGS += -DUSE_VIDEO_FILE=1
 endif

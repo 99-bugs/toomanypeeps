@@ -6,16 +6,16 @@ namespace TooManyPeeps {
   {
     captureDevice.set(CV_CAP_PROP_FORMAT, CV_8UC1);
 
+    set_width(320);
+    set_height(240);
+    grey_mode();
+    set_framerate(5);
+
     std::cout << "Opening Rpi Camera..." << std::endl;
     if (!captureDevice.open()) {
       std::cerr << "Error opening Rpi camera" << std::endl;
       throw std::exception();
     }
-
-    set_width(640);
-    set_height(480);
-    grey_mode();
-    set_framerate(5);
   }
 
   PiCamera::~PiCamera(void) {

@@ -22,8 +22,8 @@ int main(int argc, const char * argv[])
 
 #if defined(USE_RASPBERRY_PI)
   PiCamera frame_grabber;
-  frame_grabber.set_width(320);
-  frame_grabber.set_height(240);
+  // frame_grabber.set_width(320);
+  // frame_grabber.set_height(240);
 #elif defined(USE_VIDEO_FILE)
   std::string filename = "./video_samples/sample-02.mp4";
   if (argc >= 2) {
